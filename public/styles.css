@@ -35,6 +35,12 @@ body {
     margin-top: 2rem;
 }
 
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .site-header .brand {
     font-weight: 700;
     color: var(--ink);

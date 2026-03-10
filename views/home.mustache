@@ -1,26 +1,47 @@
 
 {{> head}}
 {{> header}}
-<h1>Upcoming Courses</h1>
 
-<div class="cards">
-  {{#courses}}
-  <article class="card">
-    <h2>/courses/{{title}}</a></h2>
-    <p class="muted">
-      Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
-    </p>
-    <p>{{description}}</p>
-    <p class="muted">Dates: {{startDate}}  {{endDate}}</p>
-    <p class="muted">Next session: {{nextSession}} • Sessions: {{sessionsCount}}</p>
-    <p>/courses/View &amp; Book</a></p>
-  </article>
-  {{/courses}}
+<section aria-labelledby="studio-overview">
+  <h1 id="studio-overview">Welcome to our Yoga &amp; Mindfulness Studio</h1>
+  <p>
+    We offer small-group yoga and mindfulness classes for all levels, from complete
+    beginners to experienced practitioners. Join a weekly block of classes or a
+    focused weekend workshop.
+  </p>
+  <p class="muted">
+    Location: 123 Example Street, Glasgow • Studio 2, 3rd Floor
+  </p>
+</section>
 
-  {{^courses}}
-    <p>No courses available yet.</p>
-  {{/courses}}
-</div>
+<section aria-labelledby="upcoming-courses">
+  <h2 id="upcoming-courses">Upcoming Courses</h2>
+
+  <div class="cards">
+    {{#courses}}
+    <article class="card">
+      <h3>
+        <a href="/courses/{{id}}">{{title}}</a>
+      </h3>
+      <p class="muted">
+        Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
+      </p>
+      <p>{{description}}</p>
+      <p class="muted">Dates: {{startDate}} – {{endDate}}</p>
+      <p class="muted">
+        Next session: {{nextSession}} • Sessions: {{sessionsCount}}
+      </p>
+      <p>
+        <a class="btn primary" href="/courses/{{id}}">View details &amp; book</a>
+      </p>
+    </article>
+    {{/courses}}
+
+    {{^courses}}
+      <p>No courses available yet.</p>
+    {{/courses}}
+  </div>
+</section>
 
 {{> footer}}
 ``

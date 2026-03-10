@@ -1,30 +1,72 @@
 
-<select name="level">
-  <option value="" {{^filters.level}}selected{{/filters.level}}>Any</option>
-  <option value="beginner" {{#filters}}{{#level}} {{#isBeginner}}selected{{/isBeginner}} {{/level}}{{/filters}}>Beginner</option>
-</select>
+{{> head}}
+{{> header}}
 
- <label>
+<section class="filters" aria-labelledby="course-filters">
+  <h1 id="course-filters">All Courses</h1>
+  <form class="filter-form" method="get" action="/courses">
+    <label>
+      Level
+      <select name="level">
+        <option value="" {{^filters.level}}selected{{/filters.level}}>Any</option>
+        <option value="beginner" {{#filters}}{{#level}}{{#isBeginner}}selected{{/isBeginner}}{{/level}}{{/filters}}>Beginner</option>
+        <option value="intermediate" {{#filters}}{{#level}}{{#isIntermediate}}selected{{/isIntermediate}}{{/level}}{{/filters}}>Intermediate</option>
+        <option value="advanced" {{#filters}}{{#level}}{{#isAdvanced}}selected{{/isAdvanced}}{{/level}}{{/filters}}>Advanced</option>
+      </select>
+    </label>
+
+    <label>
+      Type
+      <select name="type">
+        <option value="" {{^filters.type}}selected{{/filters.type}}>Any</option>
+        <option value="WEEKLY_BLOCK" {{#filters}}{{#type}}{{#isWeekly}}selected{{/isWeekly}}{{/type}}{{/filters}}>
+          Weekly block
+        </option>
+        <option value="WEEKEND_WORKSHOP" {{#filters}}{{#type}}{{#isWorkshop}}selected{{/isWorkshop}}{{/type}}{{/filters}}>
+          Weekend workshop
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Drop-in
+      <select name="dropin">
+        <option value="" {{^filters.dropin}}selected{{/filters.dropin}}>Any</option>
+        <option value="yes" {{#filters}}{{#dropin}}{{#isDropinYes}}selected{{/isDropinYes}}{{/dropin}}{{/filters}}>Drop-in OK</option>
+        <option value="no" {{#filters}}{{#dropin}}{{#isDropinNo}}selected{{/isDropinNo}}{{/dropin}}{{/filters}}>Course only</option>
+      </select>
+    </label>
+
+    <label>
       Search
-      <input type="search" name="q" value="{{filters.q}}" placeholder="Title or description" />
+      <input
+        type="search"
+        name="q"
+        value="{{filters.q}}"
+        placeholder="Title or description"
+      />
     </label>
 
     <button class="btn" type="submit">Apply</button>
-    /coursesReset</a>
+    <a class="btn" href="/courses">Reset</a>
   </form>
 </section>
 
 <div class="cards">
   {{#courses}}
   <article class="card">
-    <h2>/courses/{{id}}{{title}}</a></h2>
+    <h2>
+      <a href="/courses/{{id}}">{{title}}</a>
+    </h2>
     <p class="muted">
       Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
     </p>
     <p>{{description}}</p>
     <p class="muted">Dates: {{startDate}} – {{endDate}}</p>
     <p class="muted">Next session: {{nextSession}} • Sessions: {{sessionsCount}}</p>
-    <p>/courses/{{id}}View &amp; Book</a></p>
+    <p>
+      <a class="btn primary" href="/courses/{{id}}">View &amp; Book</a>
+    </p>
   </article>
   {{/courses}}
 
@@ -32,15 +74,5 @@
     <p>No courses match your filters.</p>
   {{/courses}}
 </div>
-<!-- 
-<nav class="pagination">
-  {{#pagination.hasPrev}}
-    {{pagination.prevLink}}← Previous</a>
-  {{/pagination.hasPrev}}
 
-  <span class="muted">Page {{pagination.page}} of {{pagination.totalPages}}</span>
-
-  {{#pagination.hasNext}}
-    {{pagination.nextLink}}Next →</a>
-  {{/pagination.hasNext}}
-</nav> -->
+{{> footer}}

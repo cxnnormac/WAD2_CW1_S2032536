@@ -1,14 +1,20 @@
-
 {{> head}}
 {{> header}}
 
 <article>
-  <h1>Book: {{course.title}}</h1>
+  <h1>Book Session</h1>
+
   <p class="muted">
-    Level: {{course.level}} • Type: {{course.type}} {{#course.allowDropIn}}• Drop-in available{{/course.allowDropIn}}
+    Course: {{course.title}} • Level: {{course.level}} • Type: {{course.type}}
   </p>
-  <p>{{course.description}}</p>
-  <p class="muted">Dates: {{course.startDate}} – {{course.endDate}}</p>
+
+  <p>
+    Session time: <strong>{{session.start}}</strong>
+  </p>
+  <p class="muted">
+    Capacity: {{session.capacity}} • Booked: {{session.booked}} • Remaining:
+    {{session.remaining}}
+  </p>
 
   {{#errors}}
   <div class="alert error" role="alert" aria-live="assertive">
@@ -20,8 +26,7 @@
   </div>
   {{/errors}}
 
-  <form method="post" action="/courses/{{course.id}}/book">
-    <!-- If you add CSRF later: <input type="hidden" name="_csrf" value="{{csrfToken}}"> -->
+  <form method="post" action="/sessions/{{session.id}}/book">
     <input type="hidden" name="userId" value="{{user._id}}">
 
     <fieldset>
@@ -41,28 +46,14 @@
         <label for="notes">Notes (injuries, preferences)</label>
         <textarea id="notes" name="notes" rows="4" placeholder="Optional">{{notes}}</textarea>
       </div>
-
-      <div class="field checkbox">
-        <input id="consent" name="consent" type="checkbox" required>
-        <label for="consent">I agree to the studio’s booking terms &amp; health disclaimer.</label>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Booking summary</legend>
-      <p>This booking reserves a seat across <strong>{{sessionsCount}}</strong> sessions:</p>
-      <ul class="muted">
-        {{#sessions}}
-        <li>{{start}} ({{remaining}} places left)</li>
-        {{/sessions}}
-      </ul>
     </fieldset>
 
     <div class="actions">
-      <button class="btn primary" type="submit">Confirm Course Booking</button>
+      <button class="btn primary" type="submit">Confirm Session Booking</button>
       <a class="btn" href="/courses/{{course.id}}">Cancel</a>
     </div>
   </form>
 </article>
 
 {{> footer}}
+

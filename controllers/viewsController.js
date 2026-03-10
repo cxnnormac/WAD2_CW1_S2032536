@@ -88,6 +88,80 @@ export const courseDetailPage = async (req, res, next) => {
   }
 };
 
+export const courseBookingPage = async (req, res, next) => {
+  try {
+    const courseId = req.params.id;
+    const course = await CourseModel.findById(courseId);
+    if (!course)
+      return res
+        .status(404)
+        .render("error", { title: "Not found", message: "Course not found" });
+
+    const sessions = await SessionModel.listByCourse(courseId);
+    const rows = sessions.map((s) => ({
+      id: s._id,
+      start: fmtDate(s.startDateTime),
+      remaining: Math.max(0, (s.capacity ?? 0) - (s.bookedCount ?? 0)),
+    }));
+
+    res.render("course_book", {
+      title: `Book: ${course.title}`,
+      course: {
+        id: course._id,
+        title: course.title,
+        level: course.level,
+        type: course.type,
+        allowDropIn: course.allowDropIn,
+        startDate: course.startDate ? fmtDateOnly(course.startDate) : "",
+        endDate: course.endDate ? fmtDateOnly(course.endDate) : "",
+        description: course.description,
+      },
+      sessions,
+      sessionsCount: sessions.length,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const sessionBookingPage = async (req, res, next) => {
+  try {
+    const sessionId = req.params.id;
+    const session = await SessionModel.findById(sessionId);
+    if (!session)
+      return res
+        .status(404)
+        .render("error", { title: "Not found", message: "Session not found" });
+
+    const course = await CourseModel.findById(session.courseId);
+    if (!course)
+      return res
+        .status(404)
+        .render("error", { title: "Not found", message: "Course not found" });
+
+    const viewModel = {
+      id: session._id,
+      start: fmtDate(session.startDateTime),
+      capacity: session.capacity,
+      booked: session.bookedCount ?? 0,
+      remaining: Math.max(0, (session.capacity ?? 0) - (session.bookedCount ?? 0)),
+    };
+
+    res.render("session_book", {
+      title: "Book session",
+      course: {
+        id: course._id,
+        title: course.title,
+        level: course.level,
+        type: course.type,
+      },
+      session: viewModel,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const postBookCourse = async (req, res, next) => {
   try {
     const courseId = req.params.id;
