@@ -1,2 +1,3 @@
+{"name":"connor","email":"connorpatrickmclachlan@gmail.com","role":"student","passwordSalt":"887489d85fc5b07c30533552c97bed48","passwordHash":"4adcbee2b4624f229f4b4385e5419e3d5db13c5750a6dd9841d8a73dd972a8ba5de86b711b3fbe0eb2022aaf3c213d4887642a2494bf187ea16690a1c696e7e1","createdAt":"2026-03-10T09:04:42.055Z","_id":"VjXMbwSaSoz0IaDU"}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
-{"name":"Fiona","email":"fiona@student.local","role":"student","_id":"cqhGQKxArmgTO1Se"}
+{"$$indexCreated":{"fieldName":"email","unique":true}}
