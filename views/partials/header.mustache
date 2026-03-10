@@ -1,26 +1,45 @@
-<header class="site-header">
-  <div class="wrap header-inner">
-    <a href="/" class="brand">🧘 Yoga &amp; Mindfulness Studio</a>
-    <nav aria-label="Main navigation">
-      <a href="/courses">Courses</a>
-      {{#user}}
-        {{#isOrganiser}}
-          <a href="/admin">Admin</a>
-        {{/isOrganiser}}
-      {{/user}}
-    </nav>
-    <div class="user">
-      {{#user}}
-        Signed in as <strong>{{ name }}</strong>
-        <form method="post" action="/logout" class="inline">
-          <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
-          <button class="btn" type="submit">Logout</button>
-        </form>
-      {{/user}}
-      {{^user}}
-        <a class="btn" href="/login">Login</a>
-        <a class="btn primary" href="/register">Register</a>
-      {{/user}}
+<nav class="navbar navbar-expand-lg bg-body-tertiary rounded mb-4" aria-label="Main navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/">🧘 Yoga &amp; Mindfulness</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/courses">Courses</a>
+        </li>
+        {{#user}}
+          {{#isOrganiser}}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+          </li>
+          {{/isOrganiser}}
+        {{/user}}
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        {{#user}}
+          <span class="text-muted small">Signed in as <strong>{{ name }}</strong></span>
+          <form method="post" action="/logout" class="m-0">
+            <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Logout</button>
+          </form>
+        {{/user}}
+        {{^user}}
+          <a class="btn btn-outline-secondary btn-sm" href="/login">Login</a>
+          <a class="btn btn-primary btn-sm" href="/register">Register</a>
+        {{/user}}
+      </div>
     </div>
   </div>
-</header>
+</nav>

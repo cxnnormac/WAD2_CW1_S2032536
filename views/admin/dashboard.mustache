@@ -1,20 +1,28 @@
 {{> head}}
 {{> header}}
 
-<h1>Admin</h1>
+<h1 class="h3 mb-3">Admin</h1>
 
-<div class="cards">
-  <article class="card">
-    <h2>Courses</h2>
-    <p class="muted">Total: {{stats.courses}}</p>
-    <p><a class="btn primary" href="/admin/courses">Manage courses</a></p>
-  </article>
+<div class="row g-3">
+  <div class="col-12 col-md-6">
+    <article class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5 card-title">Courses</h2>
+        <p class="text-muted mb-3">Total: {{stats.courses}}</p>
+        <a class="btn btn-primary" href="/admin/courses">Manage courses</a>
+      </div>
+    </article>
+  </div>
 
-  <article class="card">
-    <h2>Users</h2>
-    <p class="muted">Total: {{stats.users}}</p>
-    <p><a class="btn primary" href="/admin/users">Manage users</a></p>
-  </article>
+  <div class="col-12 col-md-6">
+    <article class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5 card-title">Users</h2>
+        <p class="text-muted mb-3">Total: {{stats.users}}</p>
+        <a class="btn btn-primary" href="/admin/users">Manage users</a>
+      </div>
+    </article>
+  </div>
 </div>
 
 {{> footer}}

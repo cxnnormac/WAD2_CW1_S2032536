@@ -1,23 +1,23 @@
 {{> head}}
 {{> header}}
 
-<article>
-  <h1>Book Session</h1>
+<article class="bg-white border rounded-3 p-4 shadow-sm">
+  <h1 class="h3 mb-1">Book Session</h1>
 
-  <p class="muted">
+  <p class="text-muted mb-2">
     Course: {{course.title}} • Level: {{course.level}} • Type: {{course.type}}
   </p>
 
-  <p>
+  <p class="mb-1">
     Session time: <strong>{{session.start}}</strong>
   </p>
-  <p class="muted">
+  <p class="text-muted mb-4">
     Capacity: {{session.capacity}} • Booked: {{session.booked}} • Remaining:
     {{session.remaining}}
   </p>
 
   {{#errors}}
-  <div class="alert error" role="alert" aria-live="assertive">
+  <div class="alert alert-danger" role="alert" aria-live="assertive">
     <ul>
       {{#list}}
       <li>{{.}}</li>
@@ -29,28 +29,24 @@
   <form method="post" action="/sessions/{{session.id}}/book">
     <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
 
-    <fieldset>
-      <legend>Your details</legend>
+    <div class="mb-3">
+      <label class="form-label" for="name">Full name</label>
+      <input class="form-control" id="name" name="name" type="text" required value="{{user.name}}">
+    </div>
 
-      <div class="field">
-        <label for="name">Full name</label>
-        <input id="name" name="name" type="text" required value="{{user.name}}">
-      </div>
+    <div class="mb-3">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-control" id="email" name="email" type="email" required value="{{user.email}}">
+    </div>
 
-      <div class="field">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" required value="{{user.email}}">
-      </div>
+    <div class="mb-3">
+      <label class="form-label" for="notes">Notes (injuries, preferences)</label>
+      <textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Optional">{{notes}}</textarea>
+    </div>
 
-      <div class="field">
-        <label for="notes">Notes (injuries, preferences)</label>
-        <textarea id="notes" name="notes" rows="4" placeholder="Optional">{{notes}}</textarea>
-      </div>
-    </fieldset>
-
-    <div class="actions">
-      <button class="btn primary" type="submit">Confirm Session Booking</button>
-      <a class="btn" href="/courses/{{course.id}}">Cancel</a>
+    <div class="d-flex gap-2 flex-wrap">
+      <button class="btn btn-primary" type="submit">Confirm Session Booking</button>
+      <a class="btn btn-outline-secondary" href="/courses/{{course.id}}">Cancel</a>
     </div>
   </form>
 </article>

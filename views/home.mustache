@@ -2,46 +2,58 @@
 {{> head}}
 {{> header}}
 
-<section aria-labelledby="studio-overview">
-  <h1 id="studio-overview">Welcome to our Yoga &amp; Mindfulness Studio</h1>
-  <p>
-    We offer small-group yoga and mindfulness classes for all levels, from complete
-    beginners to experienced practitioners. Join a weekly block of classes or a
-    focused weekend workshop.
-  </p>
-  <p class="muted">
-    Location: 123 Example Street, Glasgow • Studio 2, 3rd Floor
-  </p>
+<section class="mb-4" aria-labelledby="studio-overview">
+  <div class="p-4 p-md-5 bg-white border rounded-3">
+    <h1 id="studio-overview" class="display-6 fw-semibold mb-3">
+      Welcome to our Yoga &amp; Mindfulness Studio
+    </h1>
+    <p class="lead mb-3">
+      We offer small-group yoga and mindfulness classes for all levels, from complete
+      beginners to experienced practitioners. Join a weekly block of classes or a
+      focused weekend workshop.
+    </p>
+    <p class="text-muted mb-0">
+      Location: 123 Example Street, Glasgow • Studio 2, 3rd Floor
+    </p>
+  </div>
 </section>
 
 <section aria-labelledby="upcoming-courses">
-  <h2 id="upcoming-courses">Upcoming Courses</h2>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 id="upcoming-courses" class="h3 mb-0">Upcoming Courses</h2>
+    <a class="btn btn-outline-secondary btn-sm" href="/courses">View all</a>
+  </div>
 
-  <div class="cards">
+  <div class="row g-3">
     {{#courses}}
-    <article class="card">
-      <h3>
-        <a href="/courses/{{id}}">{{title}}</a>
-      </h3>
-      <p class="muted">
-        Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
-      </p>
-      <p>{{description}}</p>
-      <p class="muted">Dates: {{startDate}} – {{endDate}}</p>
-      <p class="muted">
-        Next session: {{nextSession}} • Sessions: {{sessionsCount}}
-      </p>
-      <p>
-        <a class="btn primary" href="/courses/{{id}}">View details &amp; book</a>
-      </p>
-    </article>
+    <div class="col-12 col-md-6 col-lg-4">
+      <article class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h5 card-title">
+            <a class="text-decoration-none" href="/courses/{{id}}">{{title}}</a>
+          </h3>
+          <p class="text-muted small mb-2">
+            Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
+          </p>
+          <p class="card-text">{{description}}</p>
+          <p class="text-muted small mb-1">Dates: {{startDate}} – {{endDate}}</p>
+          <p class="text-muted small mb-0">
+            Next session: {{nextSession}} • Sessions: {{sessionsCount}}
+          </p>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a class="btn btn-primary w-100" href="/courses/{{id}}">View details &amp; book</a>
+        </div>
+      </article>
+    </div>
     {{/courses}}
 
     {{^courses}}
-      <p>No courses available yet.</p>
+      <div class="col-12">
+        <div class="alert alert-info mb-0">No courses available yet.</div>
+      </div>
     {{/courses}}
   </div>
 </section>
 
 {{> footer}}
-``

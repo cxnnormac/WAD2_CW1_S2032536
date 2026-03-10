@@ -2,55 +2,61 @@
 {{> head}}
 {{> header}}
 
-<article>
-  <h1>{{course.title}}</h1>
-  <p class="muted">
-    Level: {{course.level}} • Type: {{course.type}} {{#course.allowDropIn}}• Drop-in available{{/course.allowDropIn}}
-  </p>
-  <p>{{course.description}}</p>
-  <p class="muted">Dates: {{course.startDate}} – {{course.endDate}}</p>
+<article class="bg-white border rounded-3 p-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+    <div>
+      <h1 class="h3 mb-1">{{course.title}}</h1>
+      <p class="text-muted mb-2">
+        Level: {{course.level}} • Type: {{course.type}} {{#course.allowDropIn}}• Drop-in available{{/course.allowDropIn}}
+      </p>
+    </div>
+    <div class="text-md-end">
+      <a class="btn btn-primary" href="/courses/{{course.id}}/book">Book this course</a>
+    </div>
+  </div>
 
-  <section>
-    <h2>Book the full course</h2>
-    <p>
-      <a class="btn primary" href="/courses/{{course.id}}/book">
-        Book this course
-      </a>
-    </p>
-  </section>
+  <p class="mb-2">{{course.description}}</p>
+  <p class="text-muted mb-0">Dates: {{course.startDate}} – {{course.endDate}}</p>
 
-  <section>
-    <h2>Sessions</h2>
-    <table class="table">
+  <h2 class="h5 mt-4 mb-2">Sessions</h2>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle mb-0">
       <thead>
-        <tr><th>Start</th><th>End</th><th>Capacity</th><th>Booked</th><th>Remaining</th><th></th></tr>
+        <tr>
+          <th>Start</th>
+          <th>End</th>
+          <th class="text-end">Capacity</th>
+          <th class="text-end">Booked</th>
+          <th class="text-end">Remaining</th>
+          <th class="text-end"></th>
+        </tr>
       </thead>
       <tbody>
         {{#sessions}}
         <tr>
           <td>{{start}}</td>
           <td>{{end}}</td>
-          <td>{{capacity}}</td>
-          <td>{{booked}}</td>
-          <td>{{remaining}}</td>
-          <td>
+          <td class="text-end">{{capacity}}</td>
+          <td class="text-end">{{booked}}</td>
+          <td class="text-end">{{remaining}}</td>
+          <td class="text-end">
             {{#../course.allowDropIn}}
               {{#remaining}}
-                <a class="btn" href="/sessions/{{id}}/book">Book this session</a>
+                <a class="btn btn-outline-primary btn-sm" href="/sessions/{{id}}/book">Book drop-in</a>
               {{/remaining}}
               {{^remaining}}
-                <span class="muted">Fully booked</span>
+                <span class="text-muted">Fully booked</span>
               {{/remaining}}
             {{/../course.allowDropIn}}
             {{^../course.allowDropIn}}
-              <span class="muted">Drop-ins disabled</span>
+              <span class="text-muted">Drop-ins disabled</span>
             {{/../course.allowDropIn}}
           </td>
         </tr>
         {{/sessions}}
       </tbody>
     </table>
-  </section>
+  </div>
 </article>
 
 {{> footer}}

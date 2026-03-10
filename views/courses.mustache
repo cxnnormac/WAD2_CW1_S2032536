@@ -2,22 +2,22 @@
 {{> head}}
 {{> header}}
 
-<section class="filters" aria-labelledby="course-filters">
-  <h1 id="course-filters">All Courses</h1>
-  <form class="filter-form" method="get" action="/courses">
-    <label>
-      Level
-      <select name="level">
+<section class="mb-4" aria-labelledby="course-filters">
+  <h1 id="course-filters" class="h3">All Courses</h1>
+  <form class="row g-3 align-items-end" method="get" action="/courses">
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="level">Level</label>
+      <select class="form-select" id="level" name="level">
         <option value="" {{^filters.level}}selected{{/filters.level}}>Any</option>
         <option value="beginner" {{#filters}}{{#level}}{{#isBeginner}}selected{{/isBeginner}}{{/level}}{{/filters}}>Beginner</option>
         <option value="intermediate" {{#filters}}{{#level}}{{#isIntermediate}}selected{{/isIntermediate}}{{/level}}{{/filters}}>Intermediate</option>
         <option value="advanced" {{#filters}}{{#level}}{{#isAdvanced}}selected{{/isAdvanced}}{{/level}}{{/filters}}>Advanced</option>
       </select>
-    </label>
+    </div>
 
-    <label>
-      Type
-      <select name="type">
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="type">Type</label>
+      <select class="form-select" id="type" name="type">
         <option value="" {{^filters.type}}selected{{/filters.type}}>Any</option>
         <option value="WEEKLY_BLOCK" {{#filters}}{{#type}}{{#isWeekly}}selected{{/isWeekly}}{{/type}}{{/filters}}>
           Weekly block
@@ -26,52 +26,61 @@
           Weekend workshop
         </option>
       </select>
-    </label>
+    </div>
 
-    <label>
-      Drop-in
-      <select name="dropin">
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="dropin">Drop-in</label>
+      <select class="form-select" id="dropin" name="dropin">
         <option value="" {{^filters.dropin}}selected{{/filters.dropin}}>Any</option>
         <option value="yes" {{#filters}}{{#dropin}}{{#isDropinYes}}selected{{/isDropinYes}}{{/dropin}}{{/filters}}>Drop-in OK</option>
         <option value="no" {{#filters}}{{#dropin}}{{#isDropinNo}}selected{{/isDropinNo}}{{/dropin}}{{/filters}}>Course only</option>
       </select>
-    </label>
+    </div>
 
-    <label>
-      Search
-      <input
+    <div class="col-12 col-md-3">
+      <label class="form-label" for="q">Search</label>
+      <input class="form-control"
+        id="q"
         type="search"
         name="q"
         value="{{filters.q}}"
         placeholder="Title or description"
       />
-    </label>
+    </div>
 
-    <button class="btn" type="submit">Apply</button>
-    <a class="btn" href="/courses">Reset</a>
+    <div class="col-12 d-flex gap-2">
+      <button class="btn btn-primary" type="submit">Apply</button>
+      <a class="btn btn-outline-secondary" href="/courses">Reset</a>
+    </div>
   </form>
 </section>
 
-<div class="cards">
+<div class="row g-3">
   {{#courses}}
-  <article class="card">
-    <h2>
-      <a href="/courses/{{id}}">{{title}}</a>
-    </h2>
-    <p class="muted">
-      Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
-    </p>
-    <p>{{description}}</p>
-    <p class="muted">Dates: {{startDate}} – {{endDate}}</p>
-    <p class="muted">Next session: {{nextSession}} • Sessions: {{sessionsCount}}</p>
-    <p>
-      <a class="btn primary" href="/courses/{{id}}">View &amp; Book</a>
-    </p>
-  </article>
+  <div class="col-12 col-md-6 col-lg-4">
+    <article class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h2 class="h5 card-title">
+          <a class="text-decoration-none" href="/courses/{{id}}">{{title}}</a>
+        </h2>
+        <p class="text-muted small mb-2">
+          Level: {{level}} • Type: {{type}} {{#allowDropIn}}• Drop-in OK{{/allowDropIn}}
+        </p>
+        <p class="card-text">{{description}}</p>
+        <p class="text-muted small mb-1">Dates: {{startDate}} – {{endDate}}</p>
+        <p class="text-muted small mb-0">Next session: {{nextSession}} • Sessions: {{sessionsCount}}</p>
+      </div>
+      <div class="card-footer bg-transparent border-0 pt-0">
+        <a class="btn btn-primary w-100" href="/courses/{{id}}">View &amp; Book</a>
+      </div>
+    </article>
+  </div>
   {{/courses}}
 
   {{^courses}}
-    <p>No courses match your filters.</p>
+    <div class="col-12">
+      <div class="alert alert-info mb-0">No courses match your filters.</div>
+    </div>
   {{/courses}}
 </div>
 
