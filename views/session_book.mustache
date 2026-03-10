@@ -1,17 +1,17 @@
 {{> head}}
 {{> header}}
 
-<article class="bg-white border rounded-3 p-4 shadow-sm">
+<article class="bg-body-tertiary border rounded-3 p-4 shadow-sm">
   <h1 class="h3 mb-1">Book Session</h1>
 
-  <p class="text-muted mb-2">
+  <p class="text-secondary mb-2">
     Course: {{course.title}} • Level: {{course.level}} • Type: {{course.type}}
   </p>
 
   <p class="mb-1">
     Session time: <strong>{{session.start}}</strong>
   </p>
-  <p class="text-muted mb-4">
+  <p class="text-secondary mb-4">
     Capacity: {{session.capacity}} • Booked: {{session.booked}} • Remaining:
     {{session.remaining}}
   </p>

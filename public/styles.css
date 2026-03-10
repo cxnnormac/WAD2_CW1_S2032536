@@ -1,8 +1,27 @@
 /* Keep this file minimal; Bootstrap provides most styling. */
 body {
-  background: #f8f9fa;
+  background: var(--bs-body-bg);
 }
 
 main.container {
   min-height: 70vh;
+}
+
+/* Dark theme polish */
+.navbar {
+  border: 1px solid var(--bs-border-color);
+}
+
+.card {
+  border-color: var(--bs-border-color);
+}
+
+/* Ensure tables stay legible on dark backgrounds */
+.table {
+  --bs-table-bg: transparent;
+}
+
+/* Avoid overly dim muted text */
+.text-secondary {
+  color: rgba(var(--bs-body-color-rgb), 0.75) !important;
 }

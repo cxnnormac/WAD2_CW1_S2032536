@@ -1,10 +1,11 @@
 {{> head}}
 {{> header}}
 
-<h1>{{form.heading}}</h1>
+<div class="bg-body-tertiary border rounded-3 p-4 shadow-sm">
+<h1 class="h3 mb-3">{{form.heading}}</h1>
 
 {{#errors}}
-<div class="alert error" role="alert" aria-live="assertive">
+<div class="alert alert-danger" role="alert" aria-live="assertive">
   <ul>
     {{#list}}
     <li>{{.}}</li>
@@ -16,14 +17,14 @@
 <form method="post" action="{{form.action}}">
   <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
 
-  <div class="field">
-    <label for="title">Title</label>
-    <input id="title" name="title" type="text" required value="{{form.course.title}}" />
+  <div class="mb-3">
+    <label class="form-label" for="title">Title</label>
+    <input class="form-control" id="title" name="title" type="text" required value="{{form.course.title}}" />
   </div>
 
-  <div class="field">
-    <label for="level">Level</label>
-    <select id="level" name="level" required>
+  <div class="mb-3">
+    <label class="form-label" for="level">Level</label>
+    <select class="form-select" id="level" name="level" required>
       <option value="">Select…</option>
       {{#levels}}
       <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
@@ -31,9 +32,9 @@
     </select>
   </div>
 
-  <div class="field">
-    <label for="type">Type</label>
-    <select id="type" name="type" required>
+  <div class="mb-3">
+    <label class="form-label" for="type">Type</label>
+    <select class="form-select" id="type" name="type" required>
       <option value="">Select…</option>
       {{#types}}
       <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
@@ -41,36 +42,36 @@
     </select>
   </div>
 
-  <div class="field checkbox">
-    <label>
-      <input name="allowDropIn" type="checkbox" {{#form.course.allowDropIn}}checked{{/form.course.allowDropIn}} />
-      Allow drop-in bookings
-    </label>
+  <div class="form-check mb-3">
+    <input class="form-check-input" id="allowDropIn" name="allowDropIn" type="checkbox" {{#form.course.allowDropIn}}checked{{/form.course.allowDropIn}} />
+    <label class="form-check-label" for="allowDropIn">Allow drop-in bookings</label>
   </div>
 
-  <div class="field">
-    <label for="startDate">Start date</label>
-    <input id="startDate" name="startDate" type="date" value="{{form.course.startDate}}" />
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="startDate">Start date</label>
+      <input class="form-control" id="startDate" name="startDate" type="date" value="{{form.course.startDate}}" />
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="endDate">End date</label>
+      <input class="form-control" id="endDate" name="endDate" type="date" value="{{form.course.endDate}}" />
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="location">Location</label>
+      <input class="form-control" id="location" name="location" type="text" required value="{{form.course.location}}" />
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="price">Price (whole number)</label>
+      <input class="form-control" id="price" name="price" type="number" min="0" step="1" required value="{{form.course.price}}" />
+    </div>
   </div>
 
-  <div class="field">
-    <label for="endDate">End date</label>
-    <input id="endDate" name="endDate" type="date" value="{{form.course.endDate}}" />
-  </div>
-
-  <div class="field">
-    <label for="location">Location</label>
-    <input id="location" name="location" type="text" required value="{{form.course.location}}" />
-  </div>
-
-  <div class="field">
-    <label for="price">Price (whole number)</label>
-    <input id="price" name="price" type="number" min="0" step="1" required value="{{form.course.price}}" />
-  </div>
-
-  <div class="field">
-    <label for="instructorId">Instructor</label>
-    <select id="instructorId" name="instructorId">
+  <div class="mb-3 mt-3">
+    <label class="form-label" for="instructorId">Instructor</label>
+    <select class="form-select" id="instructorId" name="instructorId">
       <option value="">(none)</option>
       {{#instructors}}
       <option value="{{_id}}">{{name}} ({{email}})</option>
@@ -78,30 +79,31 @@
     </select>
   </div>
 
-  <div class="field">
-    <label for="description">Description</label>
-    <textarea id="description" name="description" rows="5" required>{{form.course.description}}</textarea>
+  <div class="mb-3">
+    <label class="form-label" for="description">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="5" required>{{form.course.description}}</textarea>
   </div>
 
-  <div class="actions">
-    <button class="btn primary" type="submit">{{form.submitLabel}}</button>
-    <a class="btn" href="/admin/courses">Back</a>
+  <div class="d-flex gap-2 flex-wrap">
+    <button class="btn btn-primary" type="submit">{{form.submitLabel}}</button>
+    <a class="btn btn-outline-secondary" href="/admin/courses">Back</a>
     {{#form.newSessionLink}}
-      <a class="btn" href="{{form.newSessionLink}}">Add session</a>
+      <a class="btn btn-outline-primary" href="{{form.newSessionLink}}">Add session</a>
     {{/form.newSessionLink}}
   </div>
 </form>
 
 {{#form.deleteAction}}
-<form method="post" action="{{form.deleteAction}}" onsubmit="return confirm('Delete this course and all sessions/bookings?');">
+<form class="mt-3" method="post" action="{{form.deleteAction}}" onsubmit="return confirm('Delete this course and all sessions/bookings?');">
   <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
-  <button class="btn" type="submit">Delete course</button>
+  <button class="btn btn-outline-danger" type="submit">Delete course</button>
 </form>
 {{/form.deleteAction}}
 
 {{#form.sessions}}
-<h2>Sessions</h2>
-<table class="table">
+<h2 class="h5 mt-4">Sessions</h2>
+<div class="table-responsive border rounded-3">
+<table class="table table-sm table-hover align-middle mb-0">
   <thead>
     <tr><th>Start</th><th>End</th><th>Capacity</th><th>Booked</th><th></th></tr>
   </thead>
@@ -113,14 +115,16 @@
       <td>{{capacity}}</td>
       <td>{{bookedCount}}</td>
       <td>
-        <a class="btn" href="/admin/sessions/{{_id}}/edit">Edit</a>
-        <a class="btn" href="/admin/sessions/{{_id}}/participants">Class list</a>
+        <a class="btn btn-outline-primary btn-sm" href="/admin/sessions/{{_id}}/edit">Edit</a>
+        <a class="btn btn-outline-secondary btn-sm" href="/admin/sessions/{{_id}}/participants">Class list</a>
       </td>
     </tr>
     {{/form.sessions}}
   </tbody>
 </table>
+</div>
 {{/form.sessions}}
 
+ </div>
 {{> footer}}
 

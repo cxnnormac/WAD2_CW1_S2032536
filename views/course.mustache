@@ -2,11 +2,11 @@
 {{> head}}
 {{> header}}
 
-<article class="bg-white border rounded-3 p-4">
+<article class="bg-body-tertiary border rounded-3 p-4">
   <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
     <div>
       <h1 class="h3 mb-1">{{course.title}}</h1>
-      <p class="text-muted mb-2">
+      <p class="text-secondary mb-2">
         Level: {{course.level}} • Type: {{course.type}} {{#course.allowDropIn}}• Drop-in available{{/course.allowDropIn}}
       </p>
     </div>
@@ -16,11 +16,11 @@
   </div>
 
   <p class="mb-2">{{course.description}}</p>
-  <p class="text-muted mb-0">Dates: {{course.startDate}} – {{course.endDate}}</p>
+  <p class="text-secondary mb-0">Dates: {{course.startDate}} – {{course.endDate}}</p>
 
   <h2 class="h5 mt-4 mb-2">Sessions</h2>
   <div class="table-responsive">
-    <table class="table table-sm align-middle mb-0">
+    <table class="table table-sm table-hover align-middle mb-0">
       <thead>
         <tr>
           <th>Start</th>
@@ -45,11 +45,11 @@
                 <a class="btn btn-outline-primary btn-sm" href="/sessions/{{id}}/book">Book drop-in</a>
               {{/remaining}}
               {{^remaining}}
-                <span class="text-muted">Fully booked</span>
+                <span class="text-secondary">Fully booked</span>
               {{/remaining}}
             {{/../course.allowDropIn}}
             {{^../course.allowDropIn}}
-              <span class="text-muted">Drop-ins disabled</span>
+              <span class="text-secondary">Drop-ins disabled</span>
             {{/../course.allowDropIn}}
           </td>
         </tr>

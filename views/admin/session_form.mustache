@@ -1,13 +1,14 @@
 {{> head}}
 {{> header}}
 
-<h1>{{form.heading}}</h1>
-<p class="muted">
-  Course: <a href="/admin/courses/{{form.course._id}}/edit">{{form.course.title}}</a>
-</p>
+<div class="bg-body-tertiary border rounded-3 p-4 shadow-sm">
+  <h1 class="h3 mb-1">{{form.heading}}</h1>
+  <p class="text-secondary mb-4">
+    Course: <a href="/admin/courses/{{form.course._id}}/edit">{{form.course.title}}</a>
+  </p>
 
 {{#errors}}
-<div class="alert error" role="alert" aria-live="assertive">
+<div class="alert alert-danger" role="alert" aria-live="assertive">
   <ul>
     {{#list}}
     <li>{{.}}</li>
@@ -19,9 +20,10 @@
 <form method="post" action="{{form.action}}">
   <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
 
-  <div class="field">
-    <label for="startDateTime">Start date/time (ISO)</label>
+  <div class="mb-3">
+    <label class="form-label" for="startDateTime">Start date/time (ISO)</label>
     <input
+      class="form-control"
       id="startDateTime"
       name="startDateTime"
       type="text"
@@ -31,9 +33,10 @@
     />
   </div>
 
-  <div class="field">
-    <label for="endDateTime">End date/time (ISO)</label>
+  <div class="mb-3">
+    <label class="form-label" for="endDateTime">End date/time (ISO)</label>
     <input
+      class="form-control"
       id="endDateTime"
       name="endDateTime"
       type="text"
@@ -43,41 +46,42 @@
     />
   </div>
 
-  <div class="field">
-    <label for="capacity">Capacity</label>
-    <input id="capacity" name="capacity" type="number" min="1" step="1" required value="{{form.session.capacity}}" />
+  <div class="mb-3">
+    <label class="form-label" for="capacity">Capacity</label>
+    <input class="form-control" id="capacity" name="capacity" type="number" min="1" step="1" required value="{{form.session.capacity}}" />
   </div>
 
-  <div class="field">
-    <label for="location">Location</label>
-    <input id="location" name="location" type="text" required value="{{form.session.location}}" />
+  <div class="mb-3">
+    <label class="form-label" for="location">Location</label>
+    <input class="form-control" id="location" name="location" type="text" required value="{{form.session.location}}" />
   </div>
 
-  <div class="field">
-    <label for="price">Price (whole number)</label>
-    <input id="price" name="price" type="number" min="0" step="1" required value="{{form.session.price}}" />
+  <div class="mb-3">
+    <label class="form-label" for="price">Price (whole number)</label>
+    <input class="form-control" id="price" name="price" type="number" min="0" step="1" required value="{{form.session.price}}" />
   </div>
 
-  <div class="field">
-    <label for="description">Description</label>
-    <textarea id="description" name="description" rows="4" required>{{form.session.description}}</textarea>
+  <div class="mb-3">
+    <label class="form-label" for="description">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="4" required>{{form.session.description}}</textarea>
   </div>
 
-  <div class="actions">
-    <button class="btn primary" type="submit">{{form.submitLabel}}</button>
-    <a class="btn" href="/admin/courses/{{form.course._id}}/edit">Back</a>
+  <div class="d-flex gap-2 flex-wrap">
+    <button class="btn btn-primary" type="submit">{{form.submitLabel}}</button>
+    <a class="btn btn-outline-secondary" href="/admin/courses/{{form.course._id}}/edit">Back</a>
     {{#form.participantsLink}}
-      <a class="btn" href="{{form.participantsLink}}">View class list</a>
+      <a class="btn btn-outline-primary" href="{{form.participantsLink}}">View class list</a>
     {{/form.participantsLink}}
   </div>
 </form>
 
 {{#form.deleteAction}}
-<form method="post" action="{{form.deleteAction}}" onsubmit="return confirm('Delete this session?');">
+<form class="mt-3" method="post" action="{{form.deleteAction}}" onsubmit="return confirm('Delete this session?');">
   <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
-  <button class="btn" type="submit">Delete session</button>
+  <button class="btn btn-outline-danger" type="submit">Delete session</button>
 </form>
 {{/form.deleteAction}}
 
+ </div>
 {{> footer}}
 

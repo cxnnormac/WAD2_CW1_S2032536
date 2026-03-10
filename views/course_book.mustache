@@ -2,13 +2,13 @@
 {{> head}}
 {{> header}}
 
-<article class="bg-white border rounded-3 p-4 shadow-sm">
+<article class="bg-body-tertiary border rounded-3 p-4 shadow-sm">
   <h1 class="h3 mb-1">Book: {{course.title}}</h1>
-  <p class="text-muted mb-2">
+  <p class="text-secondary mb-2">
     Level: {{course.level}} • Type: {{course.type}} {{#course.allowDropIn}}• Drop-in available{{/course.allowDropIn}}
   </p>
   <p class="mb-2">{{course.description}}</p>
-  <p class="text-muted mb-4">Dates: {{course.startDate}} – {{course.endDate}}</p>
+  <p class="text-secondary mb-4">Dates: {{course.startDate}} – {{course.endDate}}</p>
 
   {{#errors}}
   <div class="alert alert-danger" role="alert" aria-live="assertive">
@@ -26,7 +26,7 @@
 
     <div class="row g-3">
       <div class="col-12 col-lg-6">
-        <div class="border rounded p-3">
+        <div class="border rounded p-3 bg-body">
           <h2 class="h5 mb-3">Your details</h2>
           <div class="mb-3">
             <label class="form-label" for="name">Full name</label>
@@ -50,14 +50,14 @@
       </div>
 
       <div class="col-12 col-lg-6">
-        <div class="border rounded p-3">
+        <div class="border rounded p-3 bg-body">
           <h2 class="h5 mb-3">Booking summary</h2>
           <p class="mb-2">This booking reserves a seat across <strong>{{sessionsCount}}</strong> sessions:</p>
           <ul class="list-group list-group-flush">
             {{#sessions}}
             <li class="list-group-item d-flex justify-content-between">
               <span>{{start}}</span>
-              <span class="text-muted">{{remaining}} left</span>
+              <span class="text-secondary">{{remaining}} left</span>
             </li>
             {{/sessions}}
           </ul>
