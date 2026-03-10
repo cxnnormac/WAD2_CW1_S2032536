@@ -3,7 +3,13 @@ import { UserModel } from "../models/userModel.js";
 
 export const attachDemoUser = async (req, res, next) => {
   try {
-    // In production you’d use real auth; here we ensure one demo student exists.
+    if (req.user) {
+      res.locals.user = req.user;
+      return next();
+    }
+    if (process.env.DEMO_USER !== "true") return next();
+
+    // Demo mode: ensure one demo student exists.
     const email = "fiona@student.local";
     let user = await UserModel.findByEmail(email);
     if (!user) {

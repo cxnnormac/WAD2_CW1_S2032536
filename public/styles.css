@@ -58,6 +58,37 @@ nav a {
     margin-left: auto;
 }
 
+.inline {
+    display: inline;
+}
+
+.field {
+    margin: 0.75rem 0;
+    display: grid;
+    gap: 0.25rem;
+    max-width: 480px;
+}
+
+.actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.alert {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: #fff;
+}
+
+.alert.error {
+    border-color: #f2b8b5;
+    background: #fff7f7;
+}
+
 .cards {
     display: grid;
     gap: 1rem;

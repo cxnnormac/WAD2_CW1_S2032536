@@ -80,6 +80,8 @@ import bookingRoutes from "./routes/bookings.js";
 import viewRoutes from "./routes/views.js";
 import { attachDemoUser } from "./middlewares/demoUser.js";
 import { initDb } from "./models/_db.js";
+import { attachUserFromJwt } from "./middlewares/auth.js";
+import { attachCsrfToken } from "./middlewares/csrf.js";
 
 dotenv.config();
 
@@ -104,17 +106,23 @@ app.use(cookieParser());
 // Static
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-// Demo user
+// Auth (JWT -> req.user)
+app.use(attachUserFromJwt);
+
+// CSRF token for SSR forms
+app.use(attachCsrfToken);
+
+// Optional demo user (only when DEMO_USER=true and no real login)
 app.use(attachDemoUser);
 
 // Health
 app.get("/health", (req, res) => res.json({ ok: true }));
 
-// JSON API routes
+// JSON API routes (kept separate from SSR pages)
 // app.use('/auth', authRoutes);
-app.use("/courses", courseRoutes);
-app.use("/sessions", sessionRoutes);
-app.use("/bookings", bookingRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/sessions", sessionRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 // SSR view routes
 app.use("/", viewRoutes);
@@ -129,8 +137,8 @@ export const server_error = (err, req, res, next) => {
 app.use(not_found);
 app.use(server_error);
 
-// Only start the server outside tests
-if (process.env.NODE_ENV !== "test") {
+// Start server only when executed directly (not when imported by tests)
+if (process.argv[1] === __filename) {
   await initDb();
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () =>

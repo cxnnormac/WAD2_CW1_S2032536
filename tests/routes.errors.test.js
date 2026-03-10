@@ -9,13 +9,13 @@ describe("Edge cases", () => {
   });
 
   test("GET /courses/:id with bad id returns 404 JSON", async () => {
-    const res = await request(app).get("/courses/does-not-exist");
+    const res = await request(app).get("/api/courses/does-not-exist");
     expect(res.status).toBe(404);
     expect(res.headers["content-type"]).toMatch(/json|html|text/); // depends on controller style
   });
 
   test("POST /bookings/session with invalid sessionId returns 404 JSON", async () => {
-    const res = await request(app).post("/bookings/session").send({
+    const res = await request(app).post("/api/bookings/session").send({
       userId: "invalid-user",
       sessionId: "invalid-session",
     });

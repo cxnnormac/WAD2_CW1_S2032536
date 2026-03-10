@@ -21,7 +21,7 @@ describe("JSON API routes", () => {
 
   // COURSES
   test("GET /courses returns array of courses", async () => {
-    const res = await request(app).get("/courses");
+    const res = await request(app).get("/api/courses");
     expect(res.status).toBe(200);
     expect(res.headers["content-type"]).toMatch(/json/);
     expect(Array.isArray(res.body.courses)).toBe(true);
@@ -39,14 +39,14 @@ describe("JSON API routes", () => {
       instructorId: data.instructor._id,
       description: "Created via API route.",
     };
-    const res = await request(app).post("/courses").send(payload);
+    const res = await request(app).post("/api/courses").send(payload);
     expect(res.status).toBe(201);
     expect(res.body.course).toBeDefined();
     expect(res.body.course.title).toBe("API Created Course");
   });
 
   test("GET /courses/:id returns course + sessions", async () => {
-    const res = await request(app).get(`/courses/${data.course._id}`);
+    const res = await request(app).get(`/api/courses/${data.course._id}`);
     expect(res.status).toBe(200);
     expect(res.body.course._id).toBe(data.course._id);
     expect(Array.isArray(res.body.sessions)).toBe(true);
@@ -62,7 +62,7 @@ describe("JSON API routes", () => {
       capacity: 16,
       bookedCount: 0,
     };
-    const res = await request(app).post("/sessions").send(payload);
+    const res = await request(app).post("/api/sessions").send(payload);
     expect(res.status).toBe(201);
     expect(res.body.session).toBeDefined();
     expect(res.body.session.courseId).toBe(data.course._id);
@@ -70,7 +70,7 @@ describe("JSON API routes", () => {
 
   test("GET /sessions/by-course/:courseId returns sessions array", async () => {
     const res = await request(app).get(
-      `/sessions/by-course/${data.course._id}`
+      `/api/sessions/by-course/${data.course._id}`
     );
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body.sessions)).toBe(true);
@@ -79,7 +79,7 @@ describe("JSON API routes", () => {
 
   // BOOKINGS
   test("POST /bookings/course creates a course booking (CONFIRMED or WAITLISTED)", async () => {
-    const res = await request(app).post("/bookings/course").send({
+    const res = await request(app).post("/api/bookings/course").send({
       userId: student._id,
       courseId: data.course._id,
     });
@@ -90,7 +90,7 @@ describe("JSON API routes", () => {
   });
 
   test("POST /bookings/session creates a session booking (CONFIRMED or WAITLISTED)", async () => {
-    const res = await request(app).post("/bookings/session").send({
+    const res = await request(app).post("/api/bookings/session").send({
       userId: student._id,
       sessionId: data.sessions[0]._id,
     });
@@ -102,14 +102,14 @@ describe("JSON API routes", () => {
 
   test("DELETE /bookings/:id cancels a booking", async () => {
     // Create, then cancel
-    const create = await request(app).post("/bookings/session").send({
+    const create = await request(app).post("/api/bookings/session").send({
       userId: student._id,
       sessionId: data.sessions[1]._id,
     });
     expect(create.status).toBe(201);
     const bookingId = create.body.booking._id;
 
-    const del = await request(app).delete(`/bookings/${bookingId}`);
+    const del = await request(app).delete(`/api/bookings/${bookingId}`);
     expect(del.status).toBe(200);
     expect(del.body.booking.status).toBe("CANCELLED");
   });

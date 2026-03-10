@@ -27,7 +27,7 @@
   {{/errors}}
 
   <form method="post" action="/sessions/{{session.id}}/book">
-    <input type="hidden" name="userId" value="{{user._id}}">
+    <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
 
     <fieldset>
       <legend>Your details</legend>

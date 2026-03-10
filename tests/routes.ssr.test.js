@@ -35,16 +35,16 @@ describe("SSR view routes", () => {
 
   test("GET /courses/:id/book renders course booking form", async () => {
     const res = await request(app).get(`/courses/${data.course._id}/book`);
-    expect(res.status).toBe(200);
-    expect(res.headers["content-type"]).toMatch(/html/);
-    expect(res.text).toMatch(/Confirm Course Booking|Book:/i);
+    // Booking pages require auth; expect redirect to login
+    expect([302, 303]).toContain(res.status);
+    expect(res.headers.location).toMatch(/\/login/i);
   });
 
   test("GET /sessions/:id/book renders session booking form", async () => {
     const sessionId = data.sessions[0]._id;
     const res = await request(app).get(`/sessions/${sessionId}/book`);
-    expect(res.status).toBe(200);
-    expect(res.headers["content-type"]).toMatch(/html/);
-    expect(res.text).toMatch(/Confirm Session Booking|Book Session/i);
+    // Booking pages require auth; expect redirect to login
+    expect([302, 303]).toContain(res.status);
+    expect(res.headers.location).toMatch(/\/login/i);
   });
 });
