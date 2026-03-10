@@ -1,0 +1,37 @@
+{{> head}}
+{{> header}}
+
+<h1>Admin · Courses</h1>
+
+<p>
+  <a class="btn primary" href="/admin/courses/new">New course</a>
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Level</th>
+      <th>Type</th>
+      <th>Drop-in</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#courses}}
+    <tr>
+      <td>{{title}}</td>
+      <td>{{level}}</td>
+      <td>{{type}}</td>
+      <td>{{#allowDropIn}}Yes{{/allowDropIn}}{{^allowDropIn}}No{{/allowDropIn}}</td>
+      <td><a class="btn" href="/admin/courses/{{_id}}/edit">Edit</a></td>
+    </tr>
+    {{/courses}}
+    {{^courses}}
+    <tr><td colspan="5" class="muted">No courses yet.</td></tr>
+    {{/courses}}
+  </tbody>
+</table>
+
+{{> footer}}
+

@@ -36,6 +36,7 @@ export async function attachUserFromJwt(req, res, next) {
     }
     req.user = user;
     res.locals.user = user;
+    res.locals.isOrganiser = user.role === "organiser";
     return next();
   } catch {
     // Expired/invalid token: clear and continue as anonymous

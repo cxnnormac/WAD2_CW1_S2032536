@@ -1,0 +1,126 @@
+{{> head}}
+{{> header}}
+
+<h1>{{form.heading}}</h1>
+
+{{#errors}}
+<div class="alert error" role="alert" aria-live="assertive">
+  <ul>
+    {{#list}}
+    <li>{{.}}</li>
+    {{/list}}
+  </ul>
+</div>
+{{/errors}}
+
+<form method="post" action="{{form.action}}">
+  <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+
+  <div class="field">
+    <label for="title">Title</label>
+    <input id="title" name="title" type="text" required value="{{form.course.title}}" />
+  </div>
+
+  <div class="field">
+    <label for="level">Level</label>
+    <select id="level" name="level" required>
+      <option value="">Select…</option>
+      {{#levels}}
+      <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+      {{/levels}}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="type">Type</label>
+    <select id="type" name="type" required>
+      <option value="">Select…</option>
+      {{#types}}
+      <option value="{{value}}" {{#selected}}selected{{/selected}}>{{value}}</option>
+      {{/types}}
+    </select>
+  </div>
+
+  <div class="field checkbox">
+    <label>
+      <input name="allowDropIn" type="checkbox" {{#form.course.allowDropIn}}checked{{/form.course.allowDropIn}} />
+      Allow drop-in bookings
+    </label>
+  </div>
+
+  <div class="field">
+    <label for="startDate">Start date</label>
+    <input id="startDate" name="startDate" type="date" value="{{form.course.startDate}}" />
+  </div>
+
+  <div class="field">
+    <label for="endDate">End date</label>
+    <input id="endDate" name="endDate" type="date" value="{{form.course.endDate}}" />
+  </div>
+
+  <div class="field">
+    <label for="location">Location</label>
+    <input id="location" name="location" type="text" required value="{{form.course.location}}" />
+  </div>
+
+  <div class="field">
+    <label for="price">Price (whole number)</label>
+    <input id="price" name="price" type="number" min="0" step="1" required value="{{form.course.price}}" />
+  </div>
+
+  <div class="field">
+    <label for="instructorId">Instructor</label>
+    <select id="instructorId" name="instructorId">
+      <option value="">(none)</option>
+      {{#instructors}}
+      <option value="{{_id}}">{{name}} ({{email}})</option>
+      {{/instructors}}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="5" required>{{form.course.description}}</textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" type="submit">{{form.submitLabel}}</button>
+    <a class="btn" href="/admin/courses">Back</a>
+    {{#form.newSessionLink}}
+      <a class="btn" href="{{form.newSessionLink}}">Add session</a>
+    {{/form.newSessionLink}}
+  </div>
+</form>
+
+{{#form.deleteAction}}
+<form method="post" action="{{form.deleteAction}}" onsubmit="return confirm('Delete this course and all sessions/bookings?');">
+  <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+  <button class="btn" type="submit">Delete course</button>
+</form>
+{{/form.deleteAction}}
+
+{{#form.sessions}}
+<h2>Sessions</h2>
+<table class="table">
+  <thead>
+    <tr><th>Start</th><th>End</th><th>Capacity</th><th>Booked</th><th></th></tr>
+  </thead>
+  <tbody>
+    {{#form.sessions}}
+    <tr>
+      <td>{{startDateTime}}</td>
+      <td>{{endDateTime}}</td>
+      <td>{{capacity}}</td>
+      <td>{{bookedCount}}</td>
+      <td>
+        <a class="btn" href="/admin/sessions/{{_id}}/edit">Edit</a>
+        <a class="btn" href="/admin/sessions/{{_id}}/participants">Class list</a>
+      </td>
+    </tr>
+    {{/form.sessions}}
+  </tbody>
+</table>
+{{/form.sessions}}
+
+{{> footer}}
+

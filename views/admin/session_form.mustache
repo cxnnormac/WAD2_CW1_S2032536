@@ -1,0 +1,83 @@
+{{> head}}
+{{> header}}
+
+<h1>{{form.heading}}</h1>
+<p class="muted">
+  Course: <a href="/admin/courses/{{form.course._id}}/edit">{{form.course.title}}</a>
+</p>
+
+{{#errors}}
+<div class="alert error" role="alert" aria-live="assertive">
+  <ul>
+    {{#list}}
+    <li>{{.}}</li>
+    {{/list}}
+  </ul>
+</div>
+{{/errors}}
+
+<form method="post" action="{{form.action}}">
+  <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+
+  <div class="field">
+    <label for="startDateTime">Start date/time (ISO)</label>
+    <input
+      id="startDateTime"
+      name="startDateTime"
+      type="text"
+      required
+      placeholder="2026-04-02T18:30:00.000Z"
+      value="{{form.session.startDateTime}}"
+    />
+  </div>
+
+  <div class="field">
+    <label for="endDateTime">End date/time (ISO)</label>
+    <input
+      id="endDateTime"
+      name="endDateTime"
+      type="text"
+      required
+      placeholder="2026-04-02T19:45:00.000Z"
+      value="{{form.session.endDateTime}}"
+    />
+  </div>
+
+  <div class="field">
+    <label for="capacity">Capacity</label>
+    <input id="capacity" name="capacity" type="number" min="1" step="1" required value="{{form.session.capacity}}" />
+  </div>
+
+  <div class="field">
+    <label for="location">Location</label>
+    <input id="location" name="location" type="text" required value="{{form.session.location}}" />
+  </div>
+
+  <div class="field">
+    <label for="price">Price (whole number)</label>
+    <input id="price" name="price" type="number" min="0" step="1" required value="{{form.session.price}}" />
+  </div>
+
+  <div class="field">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="4" required>{{form.session.description}}</textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" type="submit">{{form.submitLabel}}</button>
+    <a class="btn" href="/admin/courses/{{form.course._id}}/edit">Back</a>
+    {{#form.participantsLink}}
+      <a class="btn" href="{{form.participantsLink}}">View class list</a>
+    {{/form.participantsLink}}
+  </div>
+</form>
+
+{{#form.deleteAction}}
+<form method="post" action="{{form.deleteAction}}" onsubmit="return confirm('Delete this session?');">
+  <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+  <button class="btn" type="submit">Delete session</button>
+</form>
+{{/form.deleteAction}}
+
+{{> footer}}
+

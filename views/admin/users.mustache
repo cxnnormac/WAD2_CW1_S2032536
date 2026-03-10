@@ -1,0 +1,51 @@
+{{> head}}
+{{> header}}
+
+<h1>Admin · Users</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#users}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{role}}</td>
+      <td>
+        {{^isSelf}}
+          <form method="post" action="/admin/users/{{_id}}/promote" class="inline">
+            <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+            <button class="btn" type="submit">Make organiser</button>
+          </form>
+          <form method="post" action="/admin/users/{{_id}}/demote" class="inline">
+            <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+            <button class="btn" type="submit">Make student</button>
+          </form>
+          <form method="post" action="/admin/users/{{_id}}/delete" class="inline" onsubmit="return confirm('Remove this user?');">
+            <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+            <button class="btn" type="submit">Remove</button>
+          </form>
+        {{/isSelf}}
+        {{#isSelf}}
+          <span class="muted">This is you</span>
+        {{/isSelf}}
+      </td>
+    </tr>
+    {{/users}}
+    {{^users}}
+      <tr><td colspan="4" class="muted">No users found.</td></tr>
+    {{/users}}
+  </tbody>
+</table>
+
+<p><a class="btn" href="/admin">Back</a></p>
+
+{{> footer}}
+

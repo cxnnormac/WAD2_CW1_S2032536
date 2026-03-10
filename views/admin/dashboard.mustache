@@ -1,0 +1,21 @@
+{{> head}}
+{{> header}}
+
+<h1>Admin</h1>
+
+<div class="cards">
+  <article class="card">
+    <h2>Courses</h2>
+    <p class="muted">Total: {{stats.courses}}</p>
+    <p><a class="btn primary" href="/admin/courses">Manage courses</a></p>
+  </article>
+
+  <article class="card">
+    <h2>Users</h2>
+    <p class="muted">Total: {{stats.users}}</p>
+    <p><a class="btn primary" href="/admin/users">Manage users</a></p>
+  </article>
+</div>
+
+{{> footer}}
+

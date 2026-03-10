@@ -1,0 +1,39 @@
+{{> head}}
+{{> header}}
+
+<h1>Class list</h1>
+
+<p class="muted">
+  Course: {{#course}}{{title}}{{/course}}{{^course}}(unknown){{/course}}
+</p>
+<p class="muted">Session ID: {{session._id}} • Participants: {{participantsCount}}</p>
+
+<table class="table">
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Role</th></tr>
+  </thead>
+  <tbody>
+    {{#participants}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{role}}</td>
+    </tr>
+    {{/participants}}
+    {{^participants}}
+    <tr><td colspan="3" class="muted">No confirmed bookings for this session yet.</td></tr>
+    {{/participants}}
+  </tbody>
+</table>
+
+<p>
+  {{#course}}
+    <a class="btn" href="/admin/courses/{{_id}}/edit">Back to course</a>
+  {{/course}}
+  {{^course}}
+    <a class="btn" href="/admin/courses">Back</a>
+  {{/course}}
+</p>
+
+{{> footer}}
+

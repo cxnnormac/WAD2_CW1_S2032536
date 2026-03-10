@@ -12,9 +12,20 @@ export const BookingModel = {
   async listByUser(userId) {
     return bookingsDb.find({ userId }).sort({ createdAt: -1 });
   },
+  async listBySession(sessionId, filter = {}) {
+    return bookingsDb
+      .find({ sessionIds: sessionId, ...filter })
+      .sort({ createdAt: -1 });
+  },
+  async removeByUser(userId) {
+    return bookingsDb.remove({ userId }, { multi: true });
+  },
+  async removeByCourse(courseId) {
+    return bookingsDb.remove({ courseId }, { multi: true });
+  },
   async cancel(id) {
     await bookingsDb.update({ _id: id }, { $set: { status: 'CANCELLED' } });
     return this.findById(id);
   }
 };
-``
+

@@ -3,6 +3,11 @@
     <a href="/" class="brand">🧘 Yoga &amp; Mindfulness Studio</a>
     <nav aria-label="Main navigation">
       <a href="/courses">Courses</a>
+      {{#user}}
+        {{#isOrganiser}}
+          <a href="/admin">Admin</a>
+        {{/isOrganiser}}
+      {{/user}}
     </nav>
     <div class="user">
       {{#user}}
