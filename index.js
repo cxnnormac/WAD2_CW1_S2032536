@@ -79,6 +79,7 @@ import sessionRoutes from "./routes/sessions.js";
 import bookingRoutes from "./routes/bookings.js";
 import viewRoutes from "./routes/views.js";
 import adminRoutes from "./routes/admin.js";
+import instructorRoutes from "./routes/instructor.js";
 import { attachDemoUser } from "./middlewares/demoUser.js";
 import { initDb } from "./models/_db.js";
 import { attachUserFromJwt } from "./middlewares/auth.js";
@@ -128,6 +129,7 @@ app.use("/api/bookings", bookingRoutes);
 // SSR view routes
 app.use("/", viewRoutes);
 app.use("/admin", adminRoutes);
+app.use("/instructor", instructorRoutes);
 
 // Errors
 export const not_found = (req, res) =>

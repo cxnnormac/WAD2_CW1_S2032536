@@ -1,0 +1,39 @@
+{{> head}}
+{{> header}}
+
+<h1 class="h3 mb-3">Instructor · My courses</h1>
+
+<div class="table-responsive bg-body-tertiary border rounded-3">
+<table class="table table-striped table-hover align-middle mb-0">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Level</th>
+      <th>Type</th>
+      <th>Sessions</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#courses}}
+    <tr>
+      <td>{{title}}</td>
+      <td>{{level}}</td>
+      <td>{{type}}</td>
+      <td>{{sessionsCount}}</td>
+      <td class="text-end">
+        <a class="btn btn-outline-secondary btn-sm" href="/courses/{{_id}}">View public page</a>
+      </td>
+    </tr>
+    {{/courses}}
+    {{^courses}}
+    <tr>
+      <td colspan="5" class="text-secondary">You are not assigned as instructor to any courses yet.</td>
+    </tr>
+    {{/courses}}
+  </tbody>
+</table>
+</div>
+
+{{> footer}}
+

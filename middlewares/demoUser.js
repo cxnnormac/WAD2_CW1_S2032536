@@ -18,6 +18,7 @@ export const attachDemoUser = async (req, res, next) => {
     req.user = user;
     res.locals.user = user; // exposed to Mustache
     res.locals.isOrganiser = user.role === "organiser";
+    res.locals.isInstructor = user.role === "instructor";
     next();
   } catch (err) {
     next(err);

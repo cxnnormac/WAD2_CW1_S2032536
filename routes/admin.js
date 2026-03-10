@@ -19,6 +19,7 @@ import {
   adminUserPromote,
   adminUserDemote,
   adminUserDelete,
+  adminUserMakeInstructor,
 } from "../controllers/adminController.js";
 
 const router = Router();
@@ -43,11 +44,14 @@ router.post("/sessions/:id/edit", csrfProtect, adminSessionUpdate);
 router.post("/sessions/:id/delete", csrfProtect, adminSessionDelete);
 
 // Class list / participants
+// Class list / participants
+// (organisers only; instructors access their own via /instructor)
 router.get("/sessions/:id/participants", adminSessionParticipantsPage);
 
 // Users
 router.get("/users", adminUsersPage);
 router.post("/users/:id/promote", csrfProtect, adminUserPromote);
+router.post("/users/:id/instructor", csrfProtect, adminUserMakeInstructor);
 router.post("/users/:id/demote", csrfProtect, adminUserDemote);
 router.post("/users/:id/delete", csrfProtect, adminUserDelete);
 

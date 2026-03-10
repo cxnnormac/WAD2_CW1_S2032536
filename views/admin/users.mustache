@@ -25,6 +25,10 @@
             <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
             <button class="btn btn-outline-primary btn-sm" type="submit">Make organiser</button>
           </form>
+          <form method="post" action="/admin/users/{{_id}}/instructor" class="d-inline">
+            <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+            <button class="btn btn-outline-info btn-sm" type="submit">Make instructor</button>
+          </form>
           <form method="post" action="/admin/users/{{_id}}/demote" class="d-inline">
             <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
             <button class="btn btn-outline-secondary btn-sm" type="submit">Make student</button>

@@ -389,6 +389,21 @@ export const adminUserPromote = async (req, res, next) => {
   }
 };
 
+export const adminUserMakeInstructor = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    if (userId === req.user._id) {
+      return res
+        .status(400)
+        .render("error", { title: "Error", message: "You cannot change your own role." });
+    }
+    await UserModel.update(userId, { role: "instructor" });
+    res.redirect("/admin/users");
+  } catch (e) {
+    next(e);
+  }
+};
+
 export const adminUserDemote = async (req, res, next) => {
   try {
     const userId = req.params.id;
