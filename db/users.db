@@ -1,5 +1,7 @@
-{"name":"Connor Ross McLachlan","email":"connorrossmclachlan@gmail.com","role":"organiser","passwordSalt":"c9ebfb893d34d7ac5905ee1b61f9e08f","passwordHash":"51feb7919ce5df558e59e7ed07d16b553b3a81f42b3bdeccd0c2c02015d1c53f34d30e8a092fc838b00b8b59900a11bef770a30dc7654d5b2d941000eb257978","createdAt":"2026-03-10T09:28:18.043Z","_id":"J20TBPTksGsSzRQE"}
-{"name":"Full Name","email":"organiser@example.com","role":"organiser","passwordSalt":"960e424d11519795b339f8b09cca0ec2","passwordHash":"8199c02468c6a873e2a07e5b9089dde46bce1f51386acf56e8cc6147d019bb7e01ab7ad5e9bada6577b87c1619eb0bdb326a4d580441aef89096d2d51b0ca584","createdAt":"2026-03-10T09:27:31.199Z","_id":"QVw0p8kVGAfhptaI"}
-{"name":"connor","email":"connorpatrickmclachlan@gmail.com","role":"student","passwordSalt":"887489d85fc5b07c30533552c97bed48","passwordHash":"4adcbee2b4624f229f4b4385e5419e3d5db13c5750a6dd9841d8a73dd972a8ba5de86b711b3fbe0eb2022aaf3c213d4887642a2494bf187ea16690a1c696e7e1","createdAt":"2026-03-10T09:04:42.055Z","_id":"VjXMbwSaSoz0IaDU"}
+{"name":"Ben","email":"ben@yoga.local","role":"instructor","_id":"5OMYWcQbuGClkj3K"}
+{"name":"Organiser Name","email":"organiser@example.com","role":"organiser","passwordSalt":"6fcc6647539df44aa4f2bd4b18ebee90","passwordHash":"0e29f11731122ff0ab19352ca557ff26eef0067e8ba75ac065b03779b4e751aaeb6f890c3021bc6df71f8ee19cf042924ea81fe009187c01c0ff080afa4ff48b","createdAt":"2026-03-16T21:09:03.065Z","_id":"IxGaA6VPqZ2VeiLj"}
+{"name":"Fiona","email":"fiona@student.local","role":"student","_id":"RmDgDp1XvAazWtVq"}
+{"name":"Ava","email":"ava@yoga.local","role":"instructor","_id":"Xk0F2t5BknVMfiF9"}
+{"name":"Connor Ross McLachlan","email":"connorrossmclachlan@gmail.com","role":"student","passwordSalt":"3ecf9219e8ca269f0830d9837270a586","passwordHash":"69f5180e97bddf4c68bca2f5176e0c02fd0d3a7dba6bf90e110e3d38bf538d2aa8f6b24e5b8fb265063fbb71fcd06849a7b70f9ed4f6a2489846fae1f36a434a","createdAt":"2026-03-16T21:08:09.372Z","_id":"alwnk49p3uD9uelE"}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
-{"$$indexCreated":{"fieldName":"email","unique":true}}
+{"$$deleted":true,"_id":"RmDgDp1XvAazWtVq"}

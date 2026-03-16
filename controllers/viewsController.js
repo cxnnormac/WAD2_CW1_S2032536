@@ -41,6 +41,8 @@ export const homePage = async (req, res, next) => {
           nextSession: nextSession ? fmtDate(nextSession.startDateTime) : "TBA",
           sessionsCount: sessions.length,
           description: c.description,
+          location: c.location,
+          price: c.price,
         };
       })
     );
@@ -67,6 +69,9 @@ export const courseDetailPage = async (req, res, next) => {
       capacity: s.capacity,
       booked: s.bookedCount ?? 0,
       remaining: Math.max(0, (s.capacity ?? 0) - (s.bookedCount ?? 0)),
+      location: s.location || course.location,
+      price: s.price ?? course.price,
+      description: s.description,
     }));
 
     res.render("course", {
@@ -80,6 +85,8 @@ export const courseDetailPage = async (req, res, next) => {
         startDate: course.startDate ? fmtDateOnly(course.startDate) : "",
         endDate: course.endDate ? fmtDateOnly(course.endDate) : "",
         description: course.description,
+        location: course.location,
+        price: course.price,
       },
       sessions: rows,
     });

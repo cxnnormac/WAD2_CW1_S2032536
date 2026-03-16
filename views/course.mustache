@@ -16,7 +16,9 @@
   </div>
 
   <p class="mb-2">{{course.description}}</p>
-  <p class="text-secondary mb-0">Dates: {{course.startDate}} – {{course.endDate}}</p>
+  <p class="text-secondary mb-1">Dates: {{course.startDate}} – {{course.endDate}}</p>
+  <p class="text-secondary mb-1">Location: {{course.location}}</p>
+  <p class="text-secondary mb-0">Price for full course: £{{course.price}}</p>
 
   <h2 class="h5 mt-4 mb-2">Sessions</h2>
   <div class="table-responsive">
@@ -25,6 +27,8 @@
         <tr>
           <th>Start</th>
           <th>End</th>
+          <th>Location</th>
+          <th class="text-end">Price</th>
           <th class="text-end">Capacity</th>
           <th class="text-end">Booked</th>
           <th class="text-end">Remaining</th>
@@ -36,6 +40,8 @@
         <tr>
           <td>{{start}}</td>
           <td>{{end}}</td>
+          <td>{{location}}</td>
+          <td class="text-end">£{{price}}</td>
           <td class="text-end">{{capacity}}</td>
           <td class="text-end">{{booked}}</td>
           <td class="text-end">{{remaining}}</td>

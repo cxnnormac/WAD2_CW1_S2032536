@@ -30,11 +30,11 @@ async function wipeAll() {
 }
 
 async function ensureDemoStudent() {
-  let student = await UserModel.findByEmail("fiona@student.local");
+  let student = await UserModel.findByEmail("student@gcu.local");
   if (!student) {
     student = await UserModel.create({
-      name: "Fiona",
-      email: "fiona@student.local",
+      name: "Demo Student",
+      email: "student@gcu.local",
       role: "student",
     });
   }

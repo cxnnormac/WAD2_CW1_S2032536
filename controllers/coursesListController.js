@@ -75,7 +75,7 @@ export const coursesListPage = async (req, res, next) => {
     const start = (p - 1) * ps;
     const pageItems = courses.slice(start, start + ps);
 
-    // Enrich with first session date, session count
+    // Enrich with first session date, session count and basic pricing/location
     const cards = await Promise.all(
       pageItems.map(async (c) => {
         const sessions = await SessionModel.listByCourse(c._id);
@@ -91,6 +91,8 @@ export const coursesListPage = async (req, res, next) => {
           nextSession: first ? fmtDateTime(first.startDateTime) : "TBA",
           sessionsCount: sessions.length,
           description: c.description,
+          location: c.location,
+          price: c.price,
         };
       })
     );

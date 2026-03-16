@@ -8,13 +8,38 @@
       Welcome to our Yoga &amp; Mindfulness Studio
     </h1>
     <p class="lead mb-3">
-      We offer small-group yoga and mindfulness classes for all levels, from complete
-      beginners to experienced practitioners. Join a weekly block of classes or a
-      focused weekend workshop.
+      We are a small, independent studio offering yoga and mindfulness classes for all
+      levels of fitness and experience. You can join a short weekend workshop or commit
+      to a longer block of weekly classes, depending on what suits your schedule.
     </p>
-    <p class="text-secondary mb-0">
-      Location: 123 Example Street, Glasgow • Studio 2, 3rd Floor
-    </p>
+    <div class="row g-3 mb-3">
+      <div class="col-12 col-md-6">
+        <h2 class="h5">What we offer</h2>
+        <ul class="mb-0">
+          <li>Gentle and restorative classes for complete beginners</li>
+          <li>Stronger flow classes for more experienced practitioners</li>
+          <li>Mindfulness and breathing sessions to support stress management</li>
+          <li>Weekend workshops with multiple sessions over two days</li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6">
+        <h2 class="h5">Where to find us</h2>
+        <p class="mb-2">
+          Our classes run at:
+        </p>
+        <p class="mb-1">
+          <strong>Yoga &amp; Mindfulness Studio at Glasgow Caledonian University</strong><br />
+          Glasgow Caledonian University<br />
+          Cowcaddens Road<br />
+          Glasgow G4 0BA<br />
+          Campus studio space (lift access available)
+        </p>
+        <p class="mb-0 text-secondary">
+          Please arrive 10 minutes early to get settled and let the instructor know about
+          any injuries or access needs.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -37,8 +62,11 @@
           </p>
           <p class="card-text">{{description}}</p>
           <p class="text-muted small mb-1">Dates: {{startDate}} – {{endDate}}</p>
+          <p class="text-muted small mb-1">
+            Location: {{location}}
+          </p>
           <p class="text-muted small mb-0">
-            Next session: {{nextSession}} • Sessions: {{sessionsCount}}
+            Price: £{{price}} • Next session: {{nextSession}} • Sessions: {{sessionsCount}}
           </p>
         </div>
         <div class="card-footer bg-transparent border-0 pt-0">
