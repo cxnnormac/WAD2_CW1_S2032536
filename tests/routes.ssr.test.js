@@ -34,7 +34,9 @@ describe("SSR view routes", () => {
   });
 
   test("GET /courses/:id/book renders course booking form", async () => {
-    const res = await request(app).get(`/courses/${data.course._id}/book`);
+    const res = await request(app)
+      .get(`/courses/${data.course._id}/book`)
+      .set("Accept", "text/html");
     // Booking pages require auth; expect redirect to login
     expect([302, 303]).toContain(res.status);
     expect(res.headers.location).toMatch(/\/login/i);
@@ -42,7 +44,9 @@ describe("SSR view routes", () => {
 
   test("GET /sessions/:id/book renders session booking form", async () => {
     const sessionId = data.sessions[0]._id;
-    const res = await request(app).get(`/sessions/${sessionId}/book`);
+    const res = await request(app)
+      .get(`/sessions/${sessionId}/book`)
+      .set("Accept", "text/html");
     // Booking pages require auth; expect redirect to login
     expect([302, 303]).toContain(res.status);
     expect(res.headers.location).toMatch(/\/login/i);

@@ -49,6 +49,8 @@ export async function seedMinimal() {
     instructorId: instructor._id,
     sessionIds: [],
     description: "A test course for E2E route testing.",
+    location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+    price: 80,
   });
 
   // Two sessions to keep tests fast
@@ -58,6 +60,9 @@ export async function seedMinimal() {
     endDateTime: new Date("2026-02-02T19:45:00").toISOString(),
     capacity: 18,
     bookedCount: 0,
+    location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+    price: 10,
+    description: "Test session 1 description.",
   });
 
   const s2 = await SessionModel.create({
@@ -66,6 +71,9 @@ export async function seedMinimal() {
     endDateTime: new Date("2026-02-09T19:45:00").toISOString(),
     capacity: 18,
     bookedCount: 0,
+    location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+    price: 10,
+    description: "Test session 2 description.",
   });
 
   await CourseModel.update(course._id, { sessionIds: [s1._id, s2._id] });

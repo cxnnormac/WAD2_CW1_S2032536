@@ -1,4 +1,4 @@
-{"name":"Ava","email":"ava@yoga.local","role":"instructor","_id":"3Lfn13pTdxOa7jtF"}
-{"name":"Demo Student","email":"student@gcu.local","role":"student","passwordSalt":"b4a893e5a76bb771c032e67fe5f49f7c","passwordHash":"a18552e088a9123142a775eac48bbb14fa94267b2a7d22e1c075cc9769e33f535fe7bffdba47f6ceb0264f30d94fa30ebbe416357ea067baa9309fa083fcea83","createdAt":"2026-03-17T10:51:18.800Z","_id":"5zeTTEw4hWXXsYA3"}
-{"name":"Ben","email":"ben@yoga.local","role":"instructor","_id":"ozxJoUoRqTNFc7TP"}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
+{"name":"Test Student","email":"student@test.local","role":"student","_id":"2NOPRZ4dLNoxk63C"}
+{"name":"Test Instructor","email":"instructor@test.local","role":"instructor","_id":"haALsxWkSljj9PHF"}
+{"name":"API Student","email":"api@student.local","role":"student","_id":"UbvyuXesW0bglDuG"}
