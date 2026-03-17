@@ -1,7 +1,4 @@
-{"name":"Ben","email":"ben@yoga.local","role":"instructor","_id":"5OMYWcQbuGClkj3K"}
-{"name":"Organiser Name","email":"organiser@example.com","role":"organiser","passwordSalt":"6fcc6647539df44aa4f2bd4b18ebee90","passwordHash":"0e29f11731122ff0ab19352ca557ff26eef0067e8ba75ac065b03779b4e751aaeb6f890c3021bc6df71f8ee19cf042924ea81fe009187c01c0ff080afa4ff48b","createdAt":"2026-03-16T21:09:03.065Z","_id":"IxGaA6VPqZ2VeiLj"}
-{"name":"Fiona","email":"fiona@student.local","role":"student","_id":"RmDgDp1XvAazWtVq"}
-{"name":"Ava","email":"ava@yoga.local","role":"instructor","_id":"Xk0F2t5BknVMfiF9"}
-{"name":"Connor Ross McLachlan","email":"connorrossmclachlan@gmail.com","role":"student","passwordSalt":"3ecf9219e8ca269f0830d9837270a586","passwordHash":"69f5180e97bddf4c68bca2f5176e0c02fd0d3a7dba6bf90e110e3d38bf538d2aa8f6b24e5b8fb265063fbb71fcd06849a7b70f9ed4f6a2489846fae1f36a434a","createdAt":"2026-03-16T21:08:09.372Z","_id":"alwnk49p3uD9uelE"}
+{"name":"Ava","email":"ava@yoga.local","role":"instructor","_id":"3Lfn13pTdxOa7jtF"}
+{"name":"Demo Student","email":"student@gcu.local","role":"student","passwordSalt":"b4a893e5a76bb771c032e67fe5f49f7c","passwordHash":"a18552e088a9123142a775eac48bbb14fa94267b2a7d22e1c075cc9769e33f535fe7bffdba47f6ceb0264f30d94fa30ebbe416357ea067baa9309fa083fcea83","createdAt":"2026-03-17T10:51:18.800Z","_id":"5zeTTEw4hWXXsYA3"}
+{"name":"Ben","email":"ben@yoga.local","role":"instructor","_id":"ozxJoUoRqTNFc7TP"}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"RmDgDp1XvAazWtVq"}

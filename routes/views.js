@@ -8,6 +8,8 @@ import {
   postBookCourse,
   postBookSession,
   bookingConfirmationPage,
+  myBookingsPage,
+  postCancelBooking,
 } from "../controllers/viewsController.js";
 
 import { coursesListPage } from "../controllers/coursesListController.js";
@@ -46,5 +48,14 @@ router.get("/sessions/:id/book", requireAuth, sessionBookingPage);
 router.post("/courses/:id/book", requireAuth, csrfProtect, postBookCourse);
 router.post("/sessions/:id/book", requireAuth, csrfProtect, postBookSession);
 router.get("/bookings/:bookingId", bookingConfirmationPage);
+
+// Student bookings
+router.get("/my-bookings", requireAuth, myBookingsPage);
+router.post(
+  "/bookings/:bookingId/cancel",
+  requireAuth,
+  csrfProtect,
+  postCancelBooking
+);
 
 export default router;

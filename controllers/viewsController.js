@@ -23,6 +23,12 @@ const fmtDateOnly = (iso) =>
     day: "numeric",
   });
 
+const fmtMoney = (n) => {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return "";
+  return String(Math.round(v));
+};
+
 export const homePage = async (req, res, next) => {
   try {
     const courses = await CourseModel.list();
@@ -215,5 +221,90 @@ export const bookingConfirmationPage = async (req, res, next) => {
     });
   } catch (err) {
     next(err);
+  }
+};
+
+export const myBookingsPage = async (req, res, next) => {
+  try {
+    const bookings = await BookingModel.listByUser(req.user._id);
+
+    const items = await Promise.all(
+      bookings.map(async (b) => {
+        const course = b.courseId ? await CourseModel.findById(b.courseId) : null;
+
+        const sessions = await Promise.all(
+          (b.sessionIds || []).map(async (sid) => {
+            const s = await SessionModel.findById(sid);
+            if (!s) return null;
+            return {
+              id: s._id,
+              start: fmtDate(s.startDateTime),
+              end: fmtDate(s.endDateTime),
+              location: s.location || course?.location || "",
+              price: fmtMoney(s.price ?? course?.price),
+            };
+          })
+        );
+
+        const cleanSessions = sessions.filter(Boolean);
+
+        return {
+          id: b._id,
+          type: b.type,
+          status: b.status,
+          createdAt: b.createdAt ? fmtDate(b.createdAt) : "",
+          course: course
+            ? {
+                id: course._id,
+                title: course.title,
+                location: course.location || "",
+                price: fmtMoney(course.price),
+              }
+            : null,
+          sessions: cleanSessions,
+          hasSessions: cleanSessions.length > 0,
+          canCancel: b.status !== "CANCELLED",
+          isConfirmed: b.status === "CONFIRMED",
+          isWaitlisted: b.status === "WAITLISTED",
+          isCancelled: b.status === "CANCELLED",
+        };
+      })
+    );
+
+    res.render("my_bookings", {
+      title: "My bookings",
+      bookings: items,
+      cancelled: req.query.cancelled === "1",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const postCancelBooking = async (req, res) => {
+  try {
+    const bookingId = req.params.bookingId;
+    const booking = await BookingModel.findById(bookingId);
+    if (!booking || booking.userId !== req.user._id) {
+      return res
+        .status(404)
+        .render("error", { title: "Not found", message: "Booking not found" });
+    }
+    if (booking.status === "CANCELLED") {
+      return res.redirect("/my-bookings");
+    }
+
+    if (booking.status === "CONFIRMED") {
+      for (const sid of booking.sessionIds || []) {
+        await SessionModel.incrementBookedCount(sid, -1);
+      }
+    }
+
+    await BookingModel.cancel(bookingId);
+    return res.redirect("/my-bookings?cancelled=1");
+  } catch (err) {
+    return res
+      .status(500)
+      .render("error", { title: "Cancel failed", message: err.message });
   }
 };

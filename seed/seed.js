@@ -30,15 +30,20 @@ async function wipeAll() {
 }
 
 async function ensureDemoStudent() {
-  let student = await UserModel.findByEmail("student@gcu.local");
+  const email = "student@gcu.local";
+  const password = "Password1A";
+
+  let student = await UserModel.findByEmail(email);
   if (!student) {
-    student = await UserModel.create({
+    // Use register() so the account can log in via /login.
+    student = await UserModel.register({
       name: "Demo Student",
-      email: "student@gcu.local",
+      email,
+      password,
       role: "student",
     });
   }
-  return student;
+  return { ...student, __demoLogin: { email, password } };
 }
 
 async function createWeekendWorkshop() {
@@ -57,6 +62,8 @@ async function createWeekendWorkshop() {
     instructorId: instructor._id,
     sessionIds: [],
     description: "Two days of breath, posture alignment, and meditation.",
+    location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+    price: 60,
   });
 
   const base = new Date("2026-01-10T09:00:00"); // Sat 9am
@@ -70,6 +77,9 @@ async function createWeekendWorkshop() {
       endDateTime: iso(end),
       capacity: 20,
       bookedCount: 0,
+      location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+      price: 15,
+      description: `Workshop session ${i + 1}: mindfulness + gentle movement.`,
     });
     sessions.push(s);
   }
@@ -95,6 +105,8 @@ async function createWeeklyBlock() {
     instructorId: instructor._id,
     sessionIds: [],
     description: "Progressive sequences building strength and flexibility.",
+    location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+    price: 84,
   });
 
   const first = new Date("2026-02-02T18:30:00"); // Monday 6:30pm
@@ -108,6 +120,9 @@ async function createWeeklyBlock() {
       endDateTime: iso(end),
       capacity: 18,
       bookedCount: 0,
+      location: "Glasgow Caledonian University, Cowcaddens Road, Glasgow G4 0BA",
+      price: 8,
+      description: `Week ${i + 1}: vinyasa flow sequence + relaxation.`,
     });
     sessions.push(s);
   }
@@ -153,6 +168,8 @@ async function run() {
   await verifyAndReport();
 
   console.log("\n✅ Seed complete.");
+  console.log("Demo student login   :", student.__demoLogin.email);
+  console.log("Demo student password:", student.__demoLogin.password);
   console.log("Student ID           :", student._id);
   console.log(
     "Workshop course ID   :",

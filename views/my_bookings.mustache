@@ -1,0 +1,89 @@
+{{> head}}
+{{> header}}
+
+<section class="mb-4" aria-labelledby="my-bookings">
+  <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-2">
+    <div>
+      <h1 id="my-bookings" class="h3 mb-1">My bookings</h1>
+      <p class="text-secondary mb-0">View your course and drop-in bookings and cancel if needed.</p>
+    </div>
+    <div>
+      <a class="btn btn-outline-secondary" href="/courses">Browse courses</a>
+    </div>
+  </div>
+</section>
+
+{{#cancelled}}
+  <div class="alert alert-success" role="status">Booking cancelled.</div>
+{{/cancelled}}
+
+{{#bookings}}
+  <article class="border rounded-3 p-4 mb-3 bg-body-tertiary">
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+      <div>
+        {{#course}}
+          <h2 class="h5 mb-1">
+            <a class="text-decoration-none" href="/courses/{{id}}">{{title}}</a>
+          </h2>
+          <p class="text-secondary mb-2">
+            Location: {{location}} • {{#price}}Price: £{{price}}{{/price}}
+          </p>
+        {{/course}}
+        {{^course}}
+          <h2 class="h5 mb-1">Booking</h2>
+        {{/course}}
+
+        <p class="mb-0 text-secondary small">
+          Created: {{createdAt}} • Type: {{type}}
+          {{#isConfirmed}}• <span class="badge text-bg-success">Confirmed</span>{{/isConfirmed}}
+          {{#isWaitlisted}}• <span class="badge text-bg-warning">Waitlisted</span>{{/isWaitlisted}}
+          {{#isCancelled}}• <span class="badge text-bg-secondary">Cancelled</span>{{/isCancelled}}
+        </p>
+      </div>
+      <div class="text-md-end">
+        {{#canCancel}}
+          <form method="post" action="/bookings/{{id}}/cancel" class="m-0" onsubmit="return confirm('Cancel this booking?');">
+            <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+            <button class="btn btn-outline-danger" type="submit">Cancel</button>
+          </form>
+        {{/canCancel}}
+      </div>
+    </div>
+
+    {{#hasSessions}}
+      <div class="table-responsive mt-3">
+        <table class="table table-sm table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Start</th>
+              <th>End</th>
+              <th>Location</th>
+              <th class="text-end">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#sessions}}
+              <tr>
+                <td>{{start}}</td>
+                <td>{{end}}</td>
+                <td>{{location}}</td>
+                <td class="text-end">{{#price}}£{{price}}{{/price}}</td>
+              </tr>
+            {{/sessions}}
+          </tbody>
+        </table>
+      </div>
+    {{/hasSessions}}
+  </article>
+{{/bookings}}
+
+{{^bookings}}
+  <div class="alert alert-info mb-0">
+    You don’t have any bookings yet.
+    <a href="/courses" class="alert-link">Browse courses</a>
+    and book a course or a drop-in session.
+  </div>
+{{/bookings}}
+
+{{> footer}}
+
