@@ -181,6 +181,9 @@ export const postBookCourse = async (req, res, next) => {
     const booking = await bookCourseForUser(req.user._id, courseId);
     res.redirect(`/bookings/${booking._id}?status=${booking.status}`);
   } catch (err) {
+    if (err.code === "DUPLICATE_BOOKING") {
+      return res.redirect("/my-bookings?duplicate=1");
+    }
     res
       .status(400)
       .render("error", { title: "Booking failed", message: err.message });
@@ -193,6 +196,9 @@ export const postBookSession = async (req, res, next) => {
     const booking = await bookSessionForUser(req.user._id, sessionId);
     res.redirect(`/bookings/${booking._id}?status=${booking.status}`);
   } catch (err) {
+    if (err.code === "DUPLICATE_BOOKING") {
+      return res.redirect("/my-bookings?duplicate=1");
+    }
     const message =
       err.code === "DROPIN_NOT_ALLOWED"
         ? "Drop-ins are not allowed for this course."
@@ -275,6 +281,7 @@ export const myBookingsPage = async (req, res, next) => {
       title: "My bookings",
       bookings: items,
       cancelled: req.query.cancelled === "1",
+      duplicate: req.query.duplicate === "1",
     });
   } catch (err) {
     next(err);

@@ -17,6 +17,12 @@
   <div class="alert alert-success" role="status">Booking cancelled.</div>
 {{/cancelled}}
 
+{{#duplicate}}
+  <div class="alert alert-info" role="status">
+    You’ve already booked that. You can see your existing booking below.
+  </div>
+{{/duplicate}}
+
 {{#bookings}}
   <article class="border rounded-3 p-4 mb-3 bg-body-tertiary">
     <div class="d-flex flex-column flex-md-row justify-content-between gap-2">

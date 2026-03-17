@@ -12,6 +12,22 @@ export const BookingModel = {
   async listByUser(userId) {
     return bookingsDb.find({ userId }).sort({ createdAt: -1 });
   },
+  async findActiveCourseBooking(userId, courseId) {
+    return bookingsDb.findOne({
+      userId,
+      courseId,
+      type: "COURSE",
+      status: { $ne: "CANCELLED" },
+    });
+  },
+  async findActiveSessionBooking(userId, sessionId) {
+    return bookingsDb.findOne({
+      userId,
+      type: "SESSION",
+      sessionIds: sessionId,
+      status: { $ne: "CANCELLED" },
+    });
+  },
   async listBySession(sessionId, filter = {}) {
     return bookingsDb
       .find({ sessionIds: sessionId, ...filter })

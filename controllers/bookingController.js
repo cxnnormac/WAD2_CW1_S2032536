@@ -13,6 +13,9 @@ export const bookCourse = async (req, res) => {
     res.status(201).json({ booking });
   } catch (err) {
     console.error(err);
+    if (err.code === "DUPLICATE_BOOKING") {
+      return res.status(409).json({ error: err.message, bookingId: err.bookingId });
+    }
     res.status(400).json({ error: err.message });
   }
 };
@@ -25,8 +28,18 @@ export const bookSession = async (req, res) => {
   } catch (err) {
     console.error(err);
     res
-      .status(err.code === "DROPIN_NOT_ALLOWED" ? 400 : 500)
-      .json({ error: err.message });
+      .status(
+        err.code === "DROPIN_NOT_ALLOWED"
+          ? 400
+          : err.code === "DUPLICATE_BOOKING"
+            ? 409
+            : 500
+      )
+      .json(
+        err.code === "DUPLICATE_BOOKING"
+          ? { error: err.message, bookingId: err.bookingId }
+          : { error: err.message }
+      );
   }
 };
 

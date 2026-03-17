@@ -7,6 +7,14 @@ const canReserveAll = (sessions) =>
   sessions.every((s) => (s.bookedCount ?? 0) < (s.capacity ?? 0));
 
 export async function bookCourseForUser(userId, courseId) {
+  const existing = await BookingModel.findActiveCourseBooking(userId, courseId);
+  if (existing) {
+    const err = new Error("You have already booked this course.");
+    err.code = "DUPLICATE_BOOKING";
+    err.bookingId = existing._id;
+    throw err;
+  }
+
   const course = await CourseModel.findById(courseId);
   if (!course) throw new Error("Course not found");
   const sessions = await SessionModel.listByCourse(courseId);
@@ -29,6 +37,14 @@ export async function bookCourseForUser(userId, courseId) {
 }
 
 export async function bookSessionForUser(userId, sessionId) {
+  const existing = await BookingModel.findActiveSessionBooking(userId, sessionId);
+  if (existing) {
+    const err = new Error("You have already booked this class.");
+    err.code = "DUPLICATE_BOOKING";
+    err.bookingId = existing._id;
+    throw err;
+  }
+
   const session = await SessionModel.findById(sessionId);
   if (!session) throw new Error("Session not found");
   const course = await CourseModel.findById(session.courseId);
