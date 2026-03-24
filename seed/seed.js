@@ -12,6 +12,9 @@ import { UserModel } from "../models/userModel.js";
 
 const iso = (d) => new Date(d).toISOString();
 
+// Same password as demo student so seeded instructors can sign in at /login.
+const DEMO_PASSWORD = "Password1A";
+
 async function wipeAll() {
   // Remove all documents to guarantee a clean seed
   await Promise.all([
@@ -46,12 +49,30 @@ async function ensureDemoStudent() {
   return { ...student, __demoLogin: { email, password } };
 }
 
+async function ensureDemoOrganiser() {
+  const email = "organiser@gcu.local";
+  const name = "Demo Organiser";
+  let organiser = await UserModel.findByEmail(email);
+  if (!organiser) {
+    const user = await UserModel.register({
+      name,
+      email,
+      password: DEMO_PASSWORD,
+      role: "student",
+    });
+    await UserModel.update(user._id, { role: "organiser" });
+    organiser = await UserModel.findByEmail(email);
+  }
+  return { email, password: DEMO_PASSWORD, organiser };
+}
+
 async function createWeekendWorkshop() {
   const instructor = await UserModel.create({
     name: "Ava",
     email: "ava@yoga.local",
     role: "instructor",
   });
+  await UserModel.setPassword(instructor._id, DEMO_PASSWORD);
   const course = await CourseModel.create({
     title: "Winter Mindfulness Workshop",
     level: "beginner",
@@ -95,6 +116,7 @@ async function createWeeklyBlock() {
     email: "ben@yoga.local",
     role: "instructor",
   });
+  await UserModel.setPassword(instructor._id, DEMO_PASSWORD);
   const course = await CourseModel.create({
     title: "12‑Week Vinyasa Flow",
     level: "intermediate",
@@ -159,6 +181,9 @@ async function run() {
   console.log("Creating demo student…");
   const student = await ensureDemoStudent();
 
+  console.log("Creating demo organiser…");
+  const organiserDemo = await ensureDemoOrganiser();
+
   console.log("Creating weekend workshop…");
   const w = await createWeekendWorkshop();
 
@@ -170,6 +195,12 @@ async function run() {
   console.log("\n✅ Seed complete.");
   console.log("Demo student login   :", student.__demoLogin.email);
   console.log("Demo student password:", student.__demoLogin.password);
+  console.log(
+    "Instructor logins    : ava@yoga.local & ben@yoga.local — password:",
+    DEMO_PASSWORD
+  );
+  console.log("Demo organiser login :", organiserDemo.email);
+  console.log("Demo organiser pass  :", organiserDemo.password);
   console.log("Student ID           :", student._id);
   console.log(
     "Workshop course ID   :",
