@@ -1,4 +1,5 @@
-{"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
 {"name":"Test Student","email":"student@test.local","role":"student","_id":"2NOPRZ4dLNoxk63C"}
-{"name":"Test Instructor","email":"instructor@test.local","role":"instructor","_id":"haALsxWkSljj9PHF"}
 {"name":"API Student","email":"api@student.local","role":"student","_id":"UbvyuXesW0bglDuG"}
+{"name":"Test Instructor","email":"instructor@test.local","role":"instructor","_id":"haALsxWkSljj9PHF","passwordSalt":"af80be46aebdbb6d083ef3e3b400bacf","passwordHash":"2e0a32309c461676caf54edaef2d6f941480ebe152f334bf616a8ad4b2a266694224125a20b9a605f6e2cfaf009ab7192e63a22d42e0ffc389cdfbf41cb8bba4"}
+{"name":"Connor Ross McLachlan","email":"idfihi@gmail.com","role":"student","passwordSalt":"7611a923a238cbccf4cc7d8ad2db61d2","passwordHash":"6f61379d87be0387107194675d952c51acb500c30a81738776a04c8854c068f9bf53d973712f61945259e6822f400f4b22979ee112c4887835ab53473a50c784","createdAt":"2026-03-24T19:28:27.994Z","_id":"vEy4JbpJaH3MZr3w"}
+{"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}

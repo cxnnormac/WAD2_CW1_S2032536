@@ -16,6 +16,23 @@ function safeUser(user) {
   return rest;
 }
 
+function assertPasswordMeetsPolicy(password) {
+  const pw = String(password);
+  if (pw.length < 8) {
+    const err = new Error("Password must be at least 8 characters");
+    err.code = "VALIDATION";
+    throw err;
+  }
+  if (!/[A-Z]/.test(pw) || !/[0-9]/.test(pw)) {
+    const err = new Error(
+      "Password must include at least one uppercase letter and one number"
+    );
+    err.code = "VALIDATION";
+    throw err;
+  }
+  return pw;
+}
+
 export const UserModel = {
   async create(user) {
     // Low-level create used by seeds/tests; may not include auth fields.
@@ -53,19 +70,7 @@ export const UserModel = {
       throw err;
     }
 
-    const pw = String(password);
-    if (pw.length < 8) {
-      const err = new Error("Password must be at least 8 characters");
-      err.code = "VALIDATION";
-      throw err;
-    }
-    if (!/[A-Z]/.test(pw) || !/[0-9]/.test(pw)) {
-      const err = new Error(
-        "Password must include at least one uppercase letter and one number"
-      );
-      err.code = "VALIDATION";
-      throw err;
-    }
+    const pw = assertPasswordMeetsPolicy(password);
 
     const passwordSalt = crypto.randomBytes(16).toString("hex");
     const passwordHash = hashPassword(pw, passwordSalt);
@@ -79,6 +84,27 @@ export const UserModel = {
       createdAt: new Date().toISOString(),
     });
     return safeUser(user);
+  },
+
+  /** Set or replace password (e.g. seed scripts, accounts created without auth fields). */
+  async setPassword(id, password) {
+    const user = await this.findById(id);
+    if (!user) {
+      const err = new Error("User not found");
+      err.code = "NOT_FOUND";
+      throw err;
+    }
+    assertPasswordMeetsPolicy(password);
+    const passwordSalt = crypto.randomBytes(16).toString("hex");
+    const passwordHash = hashPassword(
+      String(password),
+      passwordSalt
+    );
+    await usersDb.update(
+      { _id: id },
+      { $set: { passwordSalt, passwordHash } }
+    );
+    return safeUser(await this.findById(id));
   },
 
   async verifyLogin(email, password) {
