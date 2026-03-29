@@ -1,27 +1,383 @@
-/* Keep this file minimal; Bootstrap provides most styling. */
-body {
-  background: var(--bs-body-bg);
+/* Yoga & Mindfulness — studio theme (Bootstrap 5.3 overrides + layout) */
+
+:root,
+[data-bs-theme="light"] {
+  --studio-sage: #2f5d52;
+  --studio-sage-dark: #1e3d36;
+  --studio-sage-light: #4a7c6f;
+  --studio-clay: #b86b4a;
+  --studio-clay-hover: #9d5a3e;
+  --studio-cream: #f6f3ec;
+  --studio-paper: #fffcf7;
+  --studio-ink: #1f1d1b;
+  --studio-muted: #5c5854;
+  --studio-accent-soft: rgba(47, 93, 82, 0.12);
+
+  --bs-primary: var(--studio-sage);
+  --bs-primary-rgb: 47, 93, 82;
+  --bs-body-bg: var(--studio-cream);
+  --bs-body-color: var(--studio-ink);
+  --bs-body-font-family: "Outfit", system-ui, sans-serif;
+  --bs-border-radius: 0.75rem;
+  --bs-border-radius-lg: 1rem;
+  --bs-link-color: var(--studio-sage);
+  --bs-link-hover-color: var(--studio-sage-dark);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.site-body {
+  min-height: 100vh;
+  font-feature-settings: "kern" 1;
+  background-color: var(--studio-cream);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 100% -20%, rgba(184, 107, 74, 0.14), transparent 50%),
+    radial-gradient(ellipse 90% 70% at -10% 30%, rgba(47, 93, 82, 0.12), transparent 45%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(47, 93, 82, 0.08), transparent 40%);
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.display-6 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--studio-sage-dark);
 }
 
 main.container {
-  min-height: 70vh;
+  min-height: 65vh;
+  max-width: 1140px;
 }
 
-/* Dark theme polish */
-.navbar {
-  border: 1px solid var(--bs-border-color);
+/* ——— Nav ——— */
+.studio-nav {
+  background: rgba(255, 252, 247, 0.92) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none !important;
+  border-bottom: 1px solid rgba(47, 93, 82, 0.12) !important;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+  box-shadow: 0 4px 24px rgba(31, 29, 27, 0.04);
 }
 
-.card {
-  border-color: var(--bs-border-color);
+.studio-nav .navbar-brand {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--studio-sage-dark) !important;
+  letter-spacing: 0.02em;
 }
 
-/* Ensure tables stay legible on dark backgrounds */
+.studio-nav .nav-link {
+  font-weight: 500;
+  color: var(--studio-muted) !important;
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.85rem !important;
+  transition: color 0.2s, background 0.2s;
+}
+
+.studio-nav .nav-link:hover,
+.studio-nav .nav-link:focus {
+  color: var(--studio-sage) !important;
+  background: var(--studio-accent-soft);
+}
+
+.studio-nav .btn-primary {
+  background: var(--studio-sage);
+  border-color: var(--studio-sage);
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+}
+
+.studio-nav .btn-primary:hover {
+  background: var(--studio-sage-dark);
+  border-color: var(--studio-sage-dark);
+}
+
+.studio-nav .btn-outline-secondary {
+  border-color: rgba(47, 93, 82, 0.35);
+  color: var(--studio-sage-dark);
+  font-weight: 500;
+}
+
+.studio-nav .btn-outline-secondary:hover {
+  background: var(--studio-sage);
+  border-color: var(--studio-sage);
+  color: #fff;
+}
+
+/* ——— Hero & panels ——— */
+.studio-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--bs-border-radius-lg);
+  padding: 2.25rem 2rem;
+  background: linear-gradient(135deg, var(--studio-paper) 0%, rgba(255, 252, 247, 0.97) 50%, rgba(246, 243, 236, 0.98) 100%);
+  border: 1px solid rgba(47, 93, 82, 0.1);
+  box-shadow:
+    0 1px 2px rgba(31, 29, 27, 0.04),
+    0 12px 40px rgba(47, 93, 82, 0.08);
+}
+
+.studio-hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -15%;
+  width: 55%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(184, 107, 74, 0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.studio-hero .display-6,
+.studio-hero h1 {
+  position: relative;
+  z-index: 1;
+  line-height: 1.2;
+}
+
+.studio-hero .lead {
+  position: relative;
+  z-index: 1;
+  color: var(--studio-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 52ch;
+}
+
+.studio-eyebrow {
+  font-family: "Outfit", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--studio-clay);
+  margin-bottom: 0.5rem;
+}
+
+.studio-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.studio-section-title h2 {
+  margin: 0;
+}
+
+.studio-filter-panel {
+  background: var(--studio-paper);
+  border: 1px solid rgba(47, 93, 82, 0.1);
+  border-radius: var(--bs-border-radius-lg);
+  padding: 1.5rem 1.25rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(31, 29, 27, 0.04);
+}
+
+.studio-filter-panel .form-label {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--studio-muted);
+}
+
+/* ——— Cards ——— */
+.card.studio-card {
+  border: 1px solid rgba(47, 93, 82, 0.1);
+  border-radius: var(--bs-border-radius-lg);
+  background: var(--studio-paper);
+  box-shadow: 0 4px 16px rgba(31, 29, 27, 0.05);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  overflow: hidden;
+}
+
+.card.studio-card::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--studio-sage), var(--studio-clay));
+  opacity: 0.85;
+}
+
+.card.studio-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(47, 93, 82, 0.12);
+}
+
+.card.studio-card .card-title a {
+  color: var(--studio-sage-dark);
+  transition: color 0.2s;
+}
+
+.card.studio-card .card-title a:hover {
+  color: var(--studio-clay);
+}
+
+.card.studio-card .btn-primary {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+}
+
+/* ——— Auth & small panels ——— */
+.studio-panel {
+  background: var(--studio-paper);
+  border: 1px solid rgba(47, 93, 82, 0.1);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: 0 8px 32px rgba(47, 93, 82, 0.07);
+}
+
+.studio-panel .form-label {
+  font-weight: 600;
+  color: var(--studio-muted);
+  font-size: 0.9rem;
+}
+
+.studio-panel .form-control,
+.studio-panel .form-select {
+  border-color: rgba(47, 93, 82, 0.2);
+  padding: 0.6rem 0.85rem;
+}
+
+.studio-panel .form-control:focus,
+.studio-panel .form-select:focus {
+  border-color: var(--studio-sage);
+  box-shadow: 0 0 0 0.2rem rgba(47, 93, 82, 0.15);
+}
+
+.studio-panel .bg-body {
+  background-color: rgba(255, 252, 247, 0.85) !important;
+  border-color: rgba(47, 93, 82, 0.12) !important;
+}
+
+/* ——— Buttons global ——— */
+.btn-primary {
+  background: var(--studio-sage);
+  border-color: var(--studio-sage);
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--studio-sage-dark);
+  border-color: var(--studio-sage-dark);
+}
+
+.btn-outline-secondary {
+  border-color: rgba(47, 93, 82, 0.35);
+  color: var(--studio-sage-dark);
+}
+
+.btn-outline-secondary:hover {
+  background: var(--studio-sage);
+  border-color: var(--studio-sage);
+  color: #fff;
+}
+
+/* ——— Alerts ——— */
+.alert-info {
+  background: rgba(47, 93, 82, 0.08);
+  border-color: rgba(47, 93, 82, 0.2);
+  color: var(--studio-sage-dark);
+}
+
+.alert-danger {
+  border-radius: var(--bs-border-radius);
+}
+
+.alert-success {
+  background: rgba(47, 93, 82, 0.12);
+  border-color: rgba(47, 93, 82, 0.25);
+  color: var(--studio-sage-dark);
+}
+
+/* ——— Tables (admin) ——— */
 .table {
   --bs-table-bg: transparent;
 }
 
-/* Avoid overly dim muted text */
-.text-secondary {
-  color: rgba(var(--bs-body-color-rgb), 0.75) !important;
+.table thead th {
+  font-family: "Outfit", sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--studio-muted);
+  border-bottom-color: rgba(47, 93, 82, 0.15);
+}
+
+/* ——— Footer ——— */
+.studio-footer {
+  margin-top: 3rem;
+  padding: 2rem 0 2.5rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(47, 93, 82, 0.06) 100%);
+  border-top: 1px solid rgba(47, 93, 82, 0.1);
+}
+
+.studio-footer p {
+  font-size: 0.9rem;
+  color: var(--studio-muted);
+}
+
+/* ——— Tables wrapper ——— */
+.studio-table-wrap {
+  background: var(--studio-paper);
+  border: 1px solid rgba(47, 93, 82, 0.1);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: 0 4px 16px rgba(31, 29, 27, 0.05);
+  overflow: hidden;
+}
+
+.studio-table-wrap .table {
+  margin-bottom: 0;
+}
+
+.studio-table-wrap .table td,
+.studio-table-wrap .table th {
+  vertical-align: middle;
+}
+
+/* ——— Error page ——— */
+.studio-error {
+  border-radius: var(--bs-border-radius-lg);
+  border: 1px solid rgba(220, 53, 69, 0.25);
+  background: rgba(255, 252, 247, 0.95);
+}
+
+/* ——— Page titles ——— */
+.studio-page-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  margin-bottom: 0.25rem;
+}
+
+/* ——— Lists in hero ——— */
+.studio-hero ul li {
+  margin-bottom: 0.35rem;
+  color: var(--studio-muted);
+}
+
+.studio-hero h2.h5 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--studio-sage);
+  font-size: 1.25rem;
 }

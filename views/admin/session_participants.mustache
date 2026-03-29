@@ -1,14 +1,15 @@
 {{> head}}
 {{> header}}
 
-<h1 class="h3 mb-2">Class list</h1>
+<p class="studio-eyebrow mb-1">Session</p>
+<h1 class="h3 studio-page-title mb-2">Class list</h1>
 
 <p class="text-secondary mb-1">
   Course: {{#course}}{{title}}{{/course}}{{^course}}(unknown){{/course}}
 </p>
 <p class="text-secondary mb-3">Session ID: {{session._id}} • Participants: {{participantsCount}}</p>
 
-<div class="table-responsive bg-body-tertiary border rounded-3">
+<div class="table-responsive studio-table-wrap">
 <table class="table table-striped table-hover align-middle mb-0">
   <thead>
     <tr><th>Name</th><th>Email</th><th>Role</th></tr>

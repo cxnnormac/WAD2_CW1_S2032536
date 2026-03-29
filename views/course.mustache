@@ -2,10 +2,11 @@
 {{> head}}
 {{> header}}
 
-<article class="bg-body-tertiary border rounded-3 p-4">
+<article class="studio-panel p-4 p-md-5 mb-4">
   <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
     <div>
-      <h1 class="h3 mb-1">{{course.title}}</h1>
+      <p class="studio-eyebrow mb-1">Course</p>
+      <h1 class="h3 studio-page-title mb-1">{{course.title}}</h1>
       <p class="text-secondary mb-2">
         Level: {{course.level}} • Type: {{course.type}} {{#course.allowDropIn}}• Drop-in available{{/course.allowDropIn}}
       </p>
@@ -20,8 +21,8 @@
   <p class="text-secondary mb-1">Location: {{course.location}}</p>
   <p class="text-secondary mb-0">Price for full course: £{{course.price}}</p>
 
-  <h2 class="h5 mt-4 mb-2">Sessions</h2>
-  <div class="table-responsive">
+  <h2 class="h5 mt-4 mb-3">Sessions</h2>
+  <div class="table-responsive studio-table-wrap">
     <table class="table table-sm table-hover align-middle mb-0">
       <thead>
         <tr>

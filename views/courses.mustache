@@ -3,7 +3,9 @@
 {{> header}}
 
 <section class="mb-4" aria-labelledby="course-filters">
-  <h1 id="course-filters" class="h3">All Courses</h1>
+  <p class="studio-eyebrow mb-2">Find your practice</p>
+  <h1 id="course-filters" class="studio-page-title mb-4">All courses</h1>
+  <div class="studio-filter-panel">
   <form class="row g-3 align-items-end" method="get" action="/courses">
     <div class="col-12 col-md-3">
       <label class="form-label" for="level">Level</label>
@@ -48,17 +50,18 @@
       />
     </div>
 
-    <div class="col-12 d-flex gap-2">
-      <button class="btn btn-primary" type="submit">Apply</button>
+    <div class="col-12 d-flex gap-2 pt-1">
+      <button class="btn btn-primary" type="submit">Apply filters</button>
       <a class="btn btn-outline-secondary" href="/courses">Reset</a>
     </div>
   </form>
+  </div>
 </section>
 
-<div class="row g-3">
+<div class="row g-4">
   {{#courses}}
   <div class="col-12 col-md-6 col-lg-4">
-    <article class="card h-100 shadow-sm">
+    <article class="card studio-card h-100 shadow-sm border-0">
       <div class="card-body">
         <h2 class="h5 card-title">
           <a class="text-decoration-none" href="/courses/{{id}}">{{title}}</a>

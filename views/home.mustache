@@ -2,12 +2,13 @@
 {{> head}}
 {{> header}}
 
-<section class="mb-4" aria-labelledby="studio-overview">
-  <div class="p-4 p-md-5 bg-body-tertiary border rounded-3">
+<section class="mb-5" aria-labelledby="studio-overview">
+  <div class="studio-hero p-4 p-md-5">
+    <p class="studio-eyebrow">Glasgow · Small groups · All levels</p>
     <h1 id="studio-overview" class="display-6 fw-semibold mb-3">
       Welcome to our Yoga &amp; Mindfulness Studio
     </h1>
-    <p class="lead mb-3">
+    <p class="lead mb-4">
       We are a small, independent studio offering yoga and mindfulness classes for all
       levels of fitness and experience. You can join a short weekend workshop or commit
       to a longer block of weekly classes, depending on what suits your schedule.
@@ -44,15 +45,15 @@
 </section>
 
 <section aria-labelledby="upcoming-courses">
-  <div class="d-flex align-items-center justify-content-between mb-3">
-    <h2 id="upcoming-courses" class="h3 mb-0">Upcoming Courses</h2>
-    <a class="btn btn-outline-secondary btn-sm" href="/courses">View all</a>
+  <div class="studio-section-title justify-content-between">
+    <h2 id="upcoming-courses" class="h3 studio-page-title">Upcoming courses</h2>
+    <a class="btn btn-outline-secondary btn-sm" href="/courses">View all courses</a>
   </div>
 
-  <div class="row g-3">
+  <div class="row g-4">
     {{#courses}}
     <div class="col-12 col-md-6 col-lg-4">
-      <article class="card h-100 shadow-sm">
+      <article class="card studio-card h-100 shadow-sm border-0">
         <div class="card-body">
           <h3 class="h5 card-title">
             <a class="text-decoration-none" href="/courses/{{id}}">{{title}}</a>
