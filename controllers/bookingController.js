@@ -6,15 +6,25 @@ import {
 import { BookingModel } from "../models/bookingModel.js";
 import { SessionModel } from "../models/sessionModel.js";
 
+const silentClientCodes = new Set([
+  "DUPLICATE_BOOKING",
+  "NOT_FOUND",
+  "NO_SESSIONS",
+  "DROPIN_NOT_ALLOWED",
+]);
+
 export const bookCourse = async (req, res) => {
   try {
     const { userId, courseId } = req.body;
     const booking = await bookCourseForUser(userId, courseId);
     res.status(201).json({ booking });
   } catch (err) {
-    console.error(err);
+    if (!silentClientCodes.has(err.code)) console.error(err);
     if (err.code === "DUPLICATE_BOOKING") {
       return res.status(409).json({ error: err.message, bookingId: err.bookingId });
+    }
+    if (err.code === "NOT_FOUND") {
+      return res.status(404).json({ error: err.message });
     }
     res.status(400).json({ error: err.message });
   }
@@ -26,20 +36,19 @@ export const bookSession = async (req, res) => {
     const booking = await bookSessionForUser(userId, sessionId);
     res.status(201).json({ booking });
   } catch (err) {
-    console.error(err);
-    res
-      .status(
-        err.code === "DROPIN_NOT_ALLOWED"
-          ? 400
-          : err.code === "DUPLICATE_BOOKING"
-            ? 409
-            : 500
-      )
-      .json(
-        err.code === "DUPLICATE_BOOKING"
-          ? { error: err.message, bookingId: err.bookingId }
-          : { error: err.message }
-      );
+    if (!silentClientCodes.has(err.code)) console.error(err);
+    if (err.code === "DUPLICATE_BOOKING") {
+      return res
+        .status(409)
+        .json({ error: err.message, bookingId: err.bookingId });
+    }
+    if (err.code === "DROPIN_NOT_ALLOWED") {
+      return res.status(400).json({ error: err.message });
+    }
+    if (err.code === "NOT_FOUND") {
+      return res.status(404).json({ error: err.message });
+    }
+    res.status(500).json({ error: err.message });
   }
 };
 

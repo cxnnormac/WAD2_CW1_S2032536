@@ -7,8 +7,17 @@ import { promises as fs } from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Always resolve relative to this file so seeding and server hit the SAME files
-const dbDir = path.join(__dirname, "../db");
+// Dev / seed use ../db. Tests use ../db/test-<worker> so Jest workers (and Windows file
+// locks) do not fight over the same NeDB files — avoids EPERM on rename.
+function getDbDir() {
+  if (process.env.NODE_ENV !== "test") {
+    return path.join(__dirname, "../db");
+  }
+  const wid = process.env.JEST_WORKER_ID ?? "1";
+  return path.join(__dirname, "../db", `test-${wid}`);
+}
+
+const dbDir = getDbDir();
 
 export const usersDb = Datastore.create({
   filename: path.join(dbDir, "users.db"),

@@ -16,9 +16,17 @@ export async function bookCourseForUser(userId, courseId) {
   }
 
   const course = await CourseModel.findById(courseId);
-  if (!course) throw new Error("Course not found");
+  if (!course) {
+    const err = new Error("Course not found");
+    err.code = "NOT_FOUND";
+    throw err;
+  }
   const sessions = await SessionModel.listByCourse(courseId);
-  if (sessions.length === 0) throw new Error("Course has no sessions");
+  if (sessions.length === 0) {
+    const err = new Error("Course has no sessions");
+    err.code = "NO_SESSIONS";
+    throw err;
+  }
 
   let status = "CONFIRMED";
   if (!canReserveAll(sessions)) {
@@ -46,9 +54,17 @@ export async function bookSessionForUser(userId, sessionId) {
   }
 
   const session = await SessionModel.findById(sessionId);
-  if (!session) throw new Error("Session not found");
+  if (!session) {
+    const err = new Error("Session not found");
+    err.code = "NOT_FOUND";
+    throw err;
+  }
   const course = await CourseModel.findById(session.courseId);
-  if (!course) throw new Error("Course not found");
+  if (!course) {
+    const err = new Error("Course not found");
+    err.code = "NOT_FOUND";
+    throw err;
+  }
 
   if (!course.allowDropIn && course.type === "WEEKLY_BLOCK") {
     const err = new Error("Drop-in not allowed for this course");
